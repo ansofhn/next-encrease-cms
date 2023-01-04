@@ -47,19 +47,59 @@ const Navbar = () => {
       <hr className="mx-10 border-gray-200" />
       <div className="flex flex-col gap-4 p-2 mx-16 text-sm font-medium text-gray-500 lg:p-0 lg:flex-row lg:gap-10">
         <Link href={"/"}>
-          <div className={`p-2 py-5 cursor-pointer ${currentRoute === '/' ? 'border-b-2 border-background/80 transition duration-300' : ''}`}>Dashboard</div>
+          <div
+            className={`p-2 py-5 cursor-pointer ${
+              currentRoute === "/"
+                ? "border-b-2 border-background/80 transition duration-300"
+                : ""
+            }`}
+          >
+            Dashboard
+          </div>
         </Link>
         <Link href={"/product"}>
-          <div className={`p-2 py-5 cursor-pointer ${currentRoute === '/product' ? 'border-b-2 border-background/80 transition duration-300' : ''}`}>Product</div>
+          <div
+            className={`p-2 py-5 cursor-pointer ${
+              currentRoute === "/product"
+                ? "border-b-2 border-background/80 transition duration-300"
+                : ""
+            }`}
+          >
+            Product
+          </div>
         </Link>
         <Link href={"/page"}>
-          <div className={`p-2 py-5 cursor-pointer ${currentRoute === '/page' ? 'border-b-2 border-background/80 transition duration-300' : ''}`}>Page</div>
+          <div
+            className={`p-2 py-5 cursor-pointer ${
+              currentRoute === "/page"
+                ? "border-b-2 border-background/80 transition duration-300"
+                : ""
+            }`}
+          >
+            Page
+          </div>
         </Link>
         <Link href={"/user"}>
-          <div className={`p-2 py-5 cursor-pointer ${currentRoute === '/user' ? 'border-b-2 border-background/80 transition duration-300' : ''}`}>User Admin</div>
+          <div
+            className={`p-2 py-5 cursor-pointer ${
+              currentRoute === "/user"
+                ? "border-b-2 border-background/80 transition duration-300"
+                : ""
+            }`}
+          >
+            User Admin
+          </div>
         </Link>
         <Link href={"/forum"}>
-          <div className={`p-2 py-5 cursor-pointer ${currentRoute === '/forum' ? 'border-b-2 border-background/80 transition duration-300' : ''}`}>Forum</div>
+          <div
+            className={`p-2 py-5 cursor-pointer ${
+              currentRoute === "/forum"
+                ? "border-b-2 border-background/80 transition duration-300"
+                : ""
+            }`}
+          >
+            Forum
+          </div>
         </Link>
       </div>
     </nav>
