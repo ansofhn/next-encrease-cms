@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { FaCog, FaBell } from "react-icons/fa";
+import { FaCog, FaBell, FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
   const router = useRouter();
@@ -16,10 +16,13 @@ const Navbar = () => {
             </div>
           </Link>
 
-          <div className="w-60">
+          <div className="flex items-center bg-gray-100 rounded-sm w-60">
+            <div className="py-2.5 pl-4 text-background/50 text-sm">
+              <FaSearch />
+            </div>
             <input
               type="text"
-              className="w-full py-2.5 px-3 bg-gray-100 rounded-sm text-sm"
+              className="w-full py-2.5 px-3 bg-gray-100 focus:outline-none text-background/60 text-sm"
               placeholder="Search"
             />
           </div>
@@ -31,14 +34,14 @@ const Navbar = () => {
             </button>
           </div>
           <div className="flex items-center gap-x-6">
-            <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full">
+            <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full cursor-pointer">
               <FaCog className="flex items-center justify-center w-4 h-6 text-background/50" />
             </div>
-            <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full">
+            <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full cursor-pointer">
               <FaBell className="flex items-center justify-center w-4 h-6 text-background/50" />
             </div>
           </div>
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center cursor-pointer gap-x-4">
             <div className="p-5 rounded-full bg-softGray"></div>
             <div className="text-sm font-medium text-background">Admin</div>
           </div>
