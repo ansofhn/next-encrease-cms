@@ -1,6 +1,74 @@
+import { Table } from "antd";
 import React from "react";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const User = () => {
+  const columns = [
+    {
+      title: "Fullname",
+      dataIndex: "fullName",
+    },
+    {
+      title: "Username",
+      dataIndex: "userName",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+    },
+    // {
+    //   title: "Role",
+    //   align: "center",
+    //   dataIndex: "role",
+    //   render: (role) => {
+    //     if (role.roleName == "admin") {
+    //       return (
+    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md text-maroon bg-cream">
+    //           {role.roleName}
+    //         </div>
+    //       );
+    //     } else if (role.roleName == "farmer") {
+    //       return (
+    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase bg-gray-200 rounded-md text-textColor">
+    //           {role.roleName}
+    //         </div>
+    //       );
+    //     } else {
+    //       return (
+    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase bg-gray-200 rounded-md text-textColor">
+    //           {role.roleName}
+    //         </div>
+    //       );
+    //     }
+    //   },
+    // },
+    {
+      align: "center",
+      title: "Actions",
+      render: (record) => {
+        return (
+          <div className="text-center">
+            <EditOutlined
+              onClick={() => {
+                // onEditUser(record);
+              }}
+            />
+            <DeleteOutlined
+              onClick={() => {
+                // onDeleteUser(record);
+              }}
+              style={{ color: "maroon", marginLeft: 12 }}
+            />
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
     <div class="p-10 mx-8 bg-gray-100 mt-36">
       <div class="space-y-10">
@@ -65,7 +133,21 @@ const User = () => {
           </div>
         </div>
 
-        <div class="w-full h-screen rounded-sm shadow-sm bg-softWhite"></div>
+        <div class="rounded-sm shadow-sm bg-softWhite">
+          <Table
+            bordered={true}
+            columns={columns}
+            // dataSource={dataSource}
+            pagination={{
+              pageSize: 10,
+              className: "px-4",
+              total: 50, //totalDataUser,
+              // onChange: (page) => {
+              //   getData(page);
+              // },
+            }}
+          ></Table>
+        </div>
       </div>
     </div>
   );
