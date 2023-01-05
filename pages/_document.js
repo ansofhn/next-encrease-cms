@@ -47,7 +47,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="min-h-screen antialiased text-gray-800 font-poppins">
+        <body className="text-gray-800 font-poppins">
           <Main />
           <NextScript />
         </body>
