@@ -2,7 +2,7 @@ import React from "react";
 
 const Product = () => {
   return (
-    <div class="p-10 mx-8 bg-gray-100 mt-36">
+    <div class="p-10 mx-8 bg-gray-100 mt-36"> space-y-4
       <div class="space-y-10">
         <div class="flex items-center justify-between">
           <div class="text-xl font-semibold text-background/80">Products</div>
@@ -10,7 +10,7 @@ const Product = () => {
             <button class="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite">
               Create Product
             </button>
-            <div>
+            <div> space-y-4
               <button
                 class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-softWhite py-2.5 px-4 rounded-sm"
                 type="button"
@@ -58,9 +58,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service Laptop</h1>
-              <p class="font-light">Rp.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Service Laptop</h1>
+                <p class="font-light">Rp.500.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -70,9 +73,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service Handphone</h1>
-              <p class="font-light">Rp.300.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Service Handphone</h1>
+                <p class="font-light">Rp.450.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -82,9 +88,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">ButterFly Keyboard</h1>
-              <p class="font-light">Rp.1.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Keyboard Installation</h1>
+                <p class="font-light">Rp.250.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -94,9 +103,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service PC</h1>
-              <p class="font-light">Rp.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Cable Management</h1>
+                <p class="font-light">Rp.500.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -106,9 +118,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Network Instalation</h1>
-              <p class="font-light">Rp.300.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Network Instalation</h1>
+                <p class="font-light">Rp.300.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -118,9 +133,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service Monitor</h1>
-              <p class="font-light">Rp.1.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Service Monitor</h1>
+                <p class="font-light">Rp.750.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -130,9 +148,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service Laptop</h1>
-              <p class="font-light">Rp.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Re-Install Windows</h1>
+                <p class="font-light">Rp.500.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -142,9 +163,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service Handphone</h1>
-              <p class="font-light">Rp.300.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Mobile Design</h1>
+                <p class="font-light">Rp.300.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -154,9 +178,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">ButterFly Keyboard</h1>
-              <p class="font-light">Rp.1.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Headset Reparation</h1>
+                <p class="font-light">Rp.100.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -166,9 +193,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service PC</h1>
-              <p class="font-light">Rp.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Gaming Setup</h1>
+                <p class="font-light">Rp.500.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -178,9 +208,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Network Instalation</h1>
-              <p class="font-light">Rp.300.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Network Installation</h1>
+                <p class="font-light">Rp.300.000</p>
+              </div>
             </div>
           </div>
           <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
@@ -190,9 +223,12 @@ const Product = () => {
                 class="w-full"
               />
             </div>
-            <div class="p-4 text-background">
-              <h1 class="text-lg font-semibold">Service Monitor</h1>
-              <p class="font-light">Rp.1.500.000</p>
+            <div class="p-4 text-background space-y-4">
+              <div className="text-sm text-softBlue">Technology</div>
+              <div className="flex justify-between">
+                <h1 class="text-lg font-semibold">Service Monitor</h1>
+                <p class="font-light">Rp.1.500.000</p>
+              </div>
             </div>
           </div>
         </div>
