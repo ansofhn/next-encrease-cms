@@ -168,7 +168,7 @@ const Dashboard = () => {
             <div className="text-3xl font-bold">100</div>
           </div>
 
-          <div className="row-span-3 p-6 space-y-8 rounded-sm bg-softWhite">
+          <div className="flex flex-col justify-between row-span-3 p-6 rounded-sm bg-softWhite">
             <div className="text-xl font-semibold text-background/80">
               New User
             </div>
