@@ -2,7 +2,7 @@ import React from "react";
 
 const Product = () => {
   return (
-    <div class="p-10 mx-8 bg-gray-100 mt-36"> space-y-4
+    <div class="p-10 mx-8 bg-gray-100 mt-36">
       <div class="space-y-10">
         <div class="flex items-center justify-between">
           <div class="text-xl font-semibold text-background/80">Products</div>
@@ -10,7 +10,7 @@ const Product = () => {
             <button class="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite">
               Create Product
             </button>
-            <div> space-y-4
+            <div>
               <button
                 class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-softWhite py-2.5 px-4 rounded-sm"
                 type="button"
