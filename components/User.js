@@ -1,16 +1,20 @@
 import { Table } from "antd";
 import React from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { userRepository } from "../repository/user";
 
 const User = () => {
+  const { data: dataUser } = userRepository.hooks.getUser();
+  const users = dataUser?.data;
+
+  const onEditUser = (id) => {
+    console.log(id, ":(")
+  };
+
   const columns = [
     {
       title: "Fullname",
-      dataIndex: "fullName",
-    },
-    {
-      title: "Username",
-      dataIndex: "userName",
+      dataIndex: "fullname",
     },
     {
       title: "Email",
@@ -54,14 +58,14 @@ const User = () => {
           <div className="text-center">
             <EditOutlined
               onClick={() => {
-                // onEditUser(record);
+                onEditUser(record.id);
               }}
             />
             <DeleteOutlined
               onClick={() => {
                 // onDeleteUser(record);
               }}
-              style={{ color: "maroon", marginLeft: 12 }}
+              style={{ color: "maroon", marginLeft: 14 }}
             />
           </div>
         );
@@ -137,11 +141,11 @@ const User = () => {
           <Table
             bordered={true}
             columns={columns}
-            // dataSource={dataSource}
+            dataSource={users}
             pagination={{
               pageSize: 10,
               className: "px-4",
-              total: 50, //totalDataUser,
+              total: users?.length,
               // onChange: (page) => {
               //   getData(page);
               // },
