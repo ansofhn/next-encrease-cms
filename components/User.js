@@ -18,8 +18,6 @@ const User = () => {
     setDataSource(dataUser?.data);
   }, [dataUser]);
 
-  console.log(dataSource, ":)");
-
   const onDeleteUser = (record) => {
     Modal.confirm({
       title: "Are you sure?",
@@ -55,32 +53,26 @@ const User = () => {
       title: "Phone",
       dataIndex: "phone",
     },
-    // {
-    //   title: "Role",
-    //   align: "center",
-    //   dataIndex: "role",
-    //   render: (role) => {
-    //     if (role.roleName == "admin") {
-    //       return (
-    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md text-maroon bg-cream">
-    //           {role.roleName}
-    //         </div>
-    //       );
-    //     } else if (role.roleName == "farmer") {
-    //       return (
-    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase bg-gray-200 rounded-md text-textColor">
-    //           {role.roleName}
-    //         </div>
-    //       );
-    //     } else {
-    //       return (
-    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase bg-gray-200 rounded-md text-textColor">
-    //           {role.roleName}
-    //         </div>
-    //       );
-    //     }
-    //   },
-    // },
+    {
+      title: "Role",
+      align: "center",
+      dataIndex: "role",
+      render: (role) => {
+        if (role.name == "admin") {
+          return (
+            <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md bg-background/90 text-softWhite">
+              {role.name}
+            </div>
+          );
+        } else {
+          return (
+            <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md bg-softGray text-textColor">
+              {role.name}
+            </div>
+          );
+        }
+      },
+    },
     {
       align: "center",
       title: "Actions",

@@ -18,7 +18,10 @@ const hooks = {
 
 const api = {
   createUser: (data) => {
-    return http.post(url.createUser().send(data));
+    return http.post(url.createUser()).send(data);
+  },
+  updateUser: (id, data) => {
+    return http.put(url.detailUser(id)).send(data);
   },
 };
 
