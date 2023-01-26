@@ -10,16 +10,15 @@ import { useRouter } from "next/router";
 const User = () => {
   const router = useRouter();
   const [dataSource, setDataSource] = useState();
+  const [pagePagination, setPagePagination] = useState(1);
 
-  const { data: dataUser } = userRepository.hooks.getUser();
+  const { data: dataUser } = userRepository.hooks.getUser(pagePagination);
 
   useEffect(() => {
     setDataSource(dataUser?.data);
   }, [dataUser]);
 
-  const onEditUser = (id) => {
-    console.log(id, ":(");
-  };
+  console.log(dataSource, ":)");
 
   const onDeleteUser = (record) => {
     Modal.confirm({
@@ -145,9 +144,13 @@ const User = () => {
             columns={columns}
             dataSource={dataSource}
             pagination={{
-              pageSize: 10,
+              current: pagePagination,
               className: "px-4",
-              total: dataSource?.length,
+              pageSize: dataUser?.meta?.itemsPerPage,
+              total: dataUser?.meta?.totalItems,
+              onChange(current) {
+                setPagePagination(current);
+              },
             }}
           ></Table>
         </div>
