@@ -1,14 +1,46 @@
-import { Table } from "antd";
-import React from "react";
+import { message, Modal, Table } from "antd";
+import React, { useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { userRepository } from "../repository/user";
+import { http } from "../utils/http";
+import { mutate } from "swr";
+import FilterUser from "./FilterUser";
+import { useRouter } from "next/router";
 
 const User = () => {
+  const router = useRouter();
+  const [dataSource, setDataSource] = useState();
+
   const { data: dataUser } = userRepository.hooks.getUser();
-  const users = dataUser?.data;
+
+  useEffect(() => {
+    setDataSource(dataUser?.data);
+  }, [dataUser]);
 
   const onEditUser = (id) => {
-    console.log(id, ":(")
+    console.log(id, ":(");
+  };
+
+  const onDeleteUser = (record) => {
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "Delete this user",
+      centered: true,
+      okText: "Yes",
+      okType: "danger",
+      onOk: async () => {
+        setDataSource((pre) => {
+          return pre.filter((user) => user.id !== record.id);
+        });
+        try {
+          await http.del(userRepository.url.detailUser(record?.id));
+          mutate(userRepository.url.user());
+        } catch (error) {
+          console.log(error.message, "error delete");
+          message.error("Failed Delete User");
+        }
+      },
+    });
   };
 
   const columns = [
@@ -57,13 +89,16 @@ const User = () => {
         return (
           <div className="text-center">
             <EditOutlined
-              onClick={() => {
-                onEditUser(record.id);
-              }}
+              onClick={() =>
+                router.push({
+                  pathname: "/user/[id]",
+                  query: { id: record?.id },
+                })
+              }
             />
             <DeleteOutlined
               onClick={() => {
-                // onDeleteUser(record);
+                onDeleteUser(record);
               }}
               style={{ color: "maroon", marginLeft: 14 }}
             />
@@ -74,81 +109,45 @@ const User = () => {
   ];
 
   return (
-    <div class="p-10 mx-8 bg-gray-100 mt-36">
-      <div class="space-y-10">
-        <div class="flex items-center justify-between">
-          <div class="text-xl font-semibold text-background/80">
+    <div className="p-10 mx-8 bg-gray-100 mt-36">
+      <div className="space-y-10">
+        <div className="flex items-center justify-between">
+          <div className="text-xl font-semibold text-background/80">
             User & Admin
           </div>
-          <button class="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite">
+          <button
+            onClick={() =>
+              router.push({
+                pathname: "/user/[id]",
+                query: { id: "create" },
+              })
+            }
+            className="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite"
+          >
             Add New
           </button>
         </div>
-        <hr class="border-gray-200" />
-        <div class="flex items-center justify-end space-x-4">
+        <hr className="border-gray-200" />
+        <div className="flex items-center justify-end space-x-4">
           <div>
             <input
               type="text"
-              class="text-sm bg-softWhite py-2.5 px-4 rounded-sm shadow-sm"
+              className="text-sm bg-white focus:outline-none py-2.5 px-4 rounded-sm shadow-sm"
               placeholder="Search"
             />
           </div>
-          <div>
-            <button
-              class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-softWhite py-2.5 px-4 rounded-sm"
-              type="button"
-            >
-              All User
-              <svg
-                class="w-4 h-4 ml-2"
-                aria-hidden="true"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                ></path>
-              </svg>
-            </button>
-            <div class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44">
-              <ul class="py-1 text-sm text-gray-700">
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100">
-                    Admin
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100">
-                    Member
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100">
-                    Guest
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <FilterUser />
         </div>
 
-        <div class="rounded-sm shadow-sm bg-softWhite">
+        <div className="rounded-sm shadow-sm bg-softWhite">
           <Table
             bordered={true}
             columns={columns}
-            dataSource={users}
+            dataSource={dataSource}
             pagination={{
               pageSize: 10,
               className: "px-4",
-              total: users?.length,
-              // onChange: (page) => {
-              //   getData(page);
-              // },
+              total: dataSource?.length,
             }}
           ></Table>
         </div>

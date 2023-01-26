@@ -13,4 +13,24 @@ export const http = {
       return;
     }
   },
+  post: async (url, data) => {
+    try {
+      let req = SuperAgent.post(`${appConfig.apiUrl}${url}`).send(data);
+      const resp = await req;
+      return resp?.body;
+    } catch (e) {
+      console.log(e.message);
+      return;
+    }
+  },
+  del: async (url) => {
+    try {
+      let req = SuperAgent.del(`${appConfig.apiUrl}${url}`);
+      const resp = await req;
+      return resp?.body;
+    } catch (e) {
+      console.log(e.message);
+      return;
+    }
+  },
 };
