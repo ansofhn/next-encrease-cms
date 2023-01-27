@@ -1,22 +1,34 @@
 import { message, Modal, Table } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { userRepository } from "../repository/user";
 import { http } from "../utils/http";
 import { mutate } from "swr";
-import FilterUser from "./FilterUser";
+import { Listbox, Transition } from "@headlessui/react";
+import { FaChevronDown } from "react-icons/fa";
 import { useRouter } from "next/router";
+
+const userType = [{ name: "All User" }, { name: "Admin" }, { name: "User" }];
 
 const User = () => {
   const router = useRouter();
+  const [selected, setSelected] = useState(userType[0]);
+  const [totalPage, setTotalPage] = useState();
   const [dataSource, setDataSource] = useState();
   const [pagePagination, setPagePagination] = useState(1);
 
   const { data: dataUser } = userRepository.hooks.getUser(pagePagination);
+  const { data: filterUser } = userRepository.hooks.getUserFilter(selected.name.toLowerCase());
 
   useEffect(() => {
-    setDataSource(dataUser?.data);
-  }, [dataUser]);
+    if (selected.name === "All User") {
+      setDataSource(dataUser?.data);
+      setTotalPage(dataUser?.meta?.totalItems);
+    } else {
+      setDataSource(filterUser?.[0]);
+      setTotalPage(filterUser?.[1]);
+    }
+  }, [dataUser, filterUser]);
 
   const onDeleteUser = (record) => {
     Modal.confirm({
@@ -127,7 +139,47 @@ const User = () => {
               placeholder="Search"
             />
           </div>
-          <FilterUser />
+          <Listbox value="selected" onChange={setSelected}>
+            <Listbox.Button
+              placeholder="All User"
+              class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
+            >
+              <span>{selected?.name}</span>
+              <FaChevronDown />
+            </Listbox.Button>
+            <Transition
+              as={Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Listbox.Options className="absolute z-10 w-40 py-1 overflow-auto text-sm origin-top-right bg-white rounded-sm shadow-lg mt-44 shadow-background/10 focus:outline-none sm:text-sm">
+                {userType.map((users, usersIdx) => (
+                  <Listbox.Option
+                    key={usersIdx}
+                    className={({ active }) =>
+                      `relative cursor-default select-none py-2 w-full px-4 ${
+                        active
+                          ? "bg-gray-100 text-background"
+                          : "text-backgorund"
+                      }`
+                    }
+                    value={users}
+                  >
+                    {({ selected }) => (
+                      <span
+                        className={`block truncate ${
+                          selected ? "font-medium" : "font-normal"
+                        }`}
+                      >
+                        {users.name}
+                      </span>
+                    )}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </Transition>
+          </Listbox>
         </div>
 
         <div className="rounded-sm shadow-sm bg-softWhite">
@@ -138,8 +190,8 @@ const User = () => {
             pagination={{
               current: pagePagination,
               className: "px-4",
-              pageSize: dataUser?.meta?.itemsPerPage,
-              total: dataUser?.meta?.totalItems,
+              pageSize: 10,
+              total: totalPage,
               onChange(current) {
                 setPagePagination(current);
               },

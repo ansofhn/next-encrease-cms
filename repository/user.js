@@ -5,6 +5,7 @@ const url = {
   user: (page) => `/users?page=${page}&limit=10`,
   detailUser: (id) => `/users/${id}`,
   createUser: () => "/auth/register",
+  filterUser: (id) => `/users/filter/${id}`,
 };
 
 const hooks = {
@@ -13,6 +14,9 @@ const hooks = {
   },
   getDetailUser(id) {
     return useSwr(url.detailUser(id), http.get);
+  },
+  getUserFilter(id) {
+    return useSwr(url.filterUser(id), http.get);
   },
 };
 
