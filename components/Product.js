@@ -1,6 +1,14 @@
+import { useRouter } from "next/router";
 import React from "react";
+import { productRepository } from "../repository/product";
 
 const Product = () => {
+  const router = useRouter();
+
+  const { data: dataProduct } = productRepository.hooks.getProduct();
+  const products = dataProduct?.data;
+
+  console.log(dataProduct, "test");
   return (
     <div class="p-10 mx-8 bg-gray-100 mt-36">
       <div class="space-y-10">
@@ -50,22 +58,29 @@ const Product = () => {
           </div>
         </div>
         <hr class="border-gray-200" />
+
         <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 font-poppins">
-          <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
-            <div class="bg-softWhite">
-              <img
-                src="https://source.unsplash.com/random/300x300?laptop"
-                class="w-full"
-              />
-            </div>
-            <div class="p-4 text-background space-y-4">
-              <div className="text-sm text-softBlue">Technology</div>
-              <div className="flex justify-between">
-                <h1 class="text-lg font-semibold">Service Laptop</h1>
-                <p class="font-light">Rp.500.000</p>
+          {products?.map((data) => {
+            return (
+              <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
+                <div class="bg-softWhite">
+                  <img
+                    src="https://source.unsplash.com/random/300x300?laptop"
+                    class="w-full"
+                  />
+                </div>
+                <div class="p-4 text-background space-y-4">
+                  <div className="text-sm text-softBlue">
+                    {data?.category?.name}
+                  </div>
+                  <div className="flex justify-between">
+                    <h1 class="text-lg font-semibold">{data?.name}</h1>
+                    <p class="font-light">Rp. {data?.price}</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>

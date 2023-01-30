@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { mutate } from "swr";
 import { appConfig } from "../../../config/app";
+import CMSLayout from "../../../layouts/CMSLayout";
 import { userRepository } from "../../../repository/user";
 
 const SuperAgent = require("superagent");
@@ -185,3 +186,5 @@ const FormUser = () => {
 };
 
 export default FormUser;
+
+FormUser.getLayout = (page) => <CMSLayout children={page} />;

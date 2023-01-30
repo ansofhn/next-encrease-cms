@@ -1,5 +1,6 @@
 import React from "react";
 import Dashboard from "../components/Dashboard";
+import CMSLayout from "../layouts/CMSLayout";
 
 const Home = () => {
   return (
@@ -10,3 +11,7 @@ const Home = () => {
 };
 
 export default Home;
+
+Home.getLayout = (page) => (
+  <CMSLayout children={page} />
+);

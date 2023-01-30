@@ -1,5 +1,6 @@
 import React from "react";
 import Pages from "../components/Pages";
+import CMSLayout from "../layouts/CMSLayout";
 
 const page = () => {
   return (
@@ -10,3 +11,7 @@ const page = () => {
 };
 
 export default page;
+
+page.getLayout = (page) => (
+  <CMSLayout children={page} />
+);

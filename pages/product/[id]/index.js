@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import CMSLayout from "../../../layouts/CMSLayout";
 
 const FormProduct = () => {
   const router = useRouter();
@@ -122,3 +123,5 @@ const FormProduct = () => {
 };
 
 export default FormProduct;
+
+FormProduct.getLayout = (page) => <CMSLayout children={page} />;

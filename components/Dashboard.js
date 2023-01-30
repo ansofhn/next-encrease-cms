@@ -44,14 +44,14 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Product",
-        borderRadius: 10,
+        borderRadius: 4,
         data: [0.1, 0.4, 0.2, 0.3, 0.7, 0.4, 0.6],
         backgroundColor: "#23374D",
         barThickness: 24,
       },
       {
         label: "Order",
-        borderRadius: 10,
+        borderRadius: 4,
         data: [0.07, 0.3, 0.15, 0.2, 0.6, 0.5, 0.3],
         backgroundColor: "#E5E5E5",
         barThickness: 24,
