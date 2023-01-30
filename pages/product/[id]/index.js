@@ -1,12 +1,18 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import CMSLayout from "../../../layouts/CMSLayout";
+import { productRepository } from "../../../repository/product";
 
 const FormProduct = () => {
   const router = useRouter();
   const { id } = router.query;
 
   const [mode, setMode] = useState("create");
+
+  const { data: detailproduct } = productRepository.hooks.getDetailproduct(id);
+  const product = detailproduct?.data;
+  console.log(product, "suu");
 
   const onSubmitForm = async (event) => {
     event.preventDefault();
@@ -30,7 +36,14 @@ const FormProduct = () => {
         <div className="p-10 bg-white/80">
           <form onSubmit={onSubmitForm}>
             <div className="grid grid-cols-2 w-[90%]">
-              <div className="p-4"></div>
+              <div className="p-4">
+                <Image
+                  src={`http://49.0.2.250:3002/file/${product?.image}`}
+                  width={500}
+                  height={500}
+                  alt={"Product Image"}
+                />
+              </div>
               <div className="p-4">
                 <label className="text-sm font-medium text-gray-500">
                   Category
@@ -38,7 +51,7 @@ const FormProduct = () => {
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
                     //   ref={categoryRef}
-                    defaultValue={""}
+                    defaultValue={product?.category?.name.toUpperCase()}
                     type="text"
                     required
                     className="w-full text-xs bg-transparent text-background/80 focus:outline-none"
@@ -50,7 +63,7 @@ const FormProduct = () => {
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
                     //   ref={nameRef}
-                    defaultValue={""}
+                    defaultValue={product?.name}
                     type="text"
                     required
                     className="w-full text-xs bg-transparent text-background/80 focus:outline-none"
@@ -62,7 +75,7 @@ const FormProduct = () => {
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
                     //   ref={priceRef}
-                    defaultValue={""}
+                    defaultValue={product?.price}
                     type="number"
                     required
                     className="w-full text-xs bg-transparent text-background/80 focus:outline-none"
@@ -74,7 +87,7 @@ const FormProduct = () => {
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
                     //   ref={ownerRef}
-                    defaultValue={""}
+                    defaultValue={product?.owner || "NAMA OWNER"}
                     type="text"
                     required
                     className="w-full text-xs bg-transparent text-background/80 focus:outline-none"
@@ -86,7 +99,7 @@ const FormProduct = () => {
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
                     //   ref={stockRef}
-                    defaultValue={""}
+                    defaultValue={product?.stok}
                     type="number"
                     required
                     className="w-full text-xs bg-transparent text-background/80 focus:outline-none"
@@ -98,7 +111,7 @@ const FormProduct = () => {
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <textarea
                     //   ref={descriptionRef}
-                    defaultValue={""}
+                    defaultValue={product?.description}
                     type="text"
                     required
                     className="w-full h-20 text-xs bg-transparent text-background/80 focus:outline-none"

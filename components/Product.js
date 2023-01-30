@@ -9,6 +9,11 @@ const Product = () => {
   const products = dataProduct?.data;
 
   console.log(dataProduct, "test");
+
+  const handleDetailProduct = (id) => {
+    router.push({ pathname: `/product/[id]`, query: { id: id } });
+  };
+
   return (
     <div class="p-10 mx-8 bg-gray-100 mt-36">
       <div class="space-y-10">
@@ -62,10 +67,14 @@ const Product = () => {
         <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 font-poppins">
           {products?.map((data) => {
             return (
-              <div class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105">
+              <div
+                class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105"
+                onClick={() => handleDetailProduct(data?.id)}
+                key={data?.id}
+              >
                 <div class="bg-softWhite">
                   <img
-                    src="https://source.unsplash.com/random/300x300?laptop"
+                    src={`http://49.0.2.250:3002/file/${data?.image}`}
                     class="w-full"
                   />
                 </div>
