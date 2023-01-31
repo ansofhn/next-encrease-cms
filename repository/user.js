@@ -2,7 +2,7 @@ import useSwr from "swr";
 import { http } from "../utils/http";
 
 const url = {
-  user: (page, filter, search ) => `/users?page=${page}&limit=10${filter ? `&filter.role.name=$in:${filter}`: ``}&search=${search}`,
+  user: (page, filter, search ) => `/users?page=${page}&limit=10&filter.role.name=$ilike:${filter}&search=${search}`,
   detailUser: (id) => `/users/${id}`,
   createUser: () => "/auth/register",
 };
