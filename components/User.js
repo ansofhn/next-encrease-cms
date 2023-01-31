@@ -152,7 +152,10 @@ const User = () => {
               }}
             />
           </div>
-          <Listbox value="selected" onChange={setSelected}>
+          <Listbox value="selected" onChange={(value)=>{
+            setSelected(value)
+            setPagePagination(1)
+          }}>
             <Listbox.Button
               placeholder="All User"
               class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
