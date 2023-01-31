@@ -8,7 +8,11 @@ import { Listbox, Transition } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
 import { useRouter } from "next/router";
 
-const userType = [{ name: "All User" }, { name: "Admin" }, { name: "User" }];
+const userType = [
+  { name: "All User", value: "" },
+  { name: "Admin", value: "admin" },
+  { name: "User", value: "user" },
+];
 
 const User = () => {
   const router = useRouter();
@@ -16,19 +20,18 @@ const User = () => {
   const [totalPage, setTotalPage] = useState();
   const [dataSource, setDataSource] = useState();
   const [pagePagination, setPagePagination] = useState(1);
+  const [search, setSearch] = useState("");
 
-  const { data: dataUser } = userRepository.hooks.getUser(pagePagination);
-  const { data: filterUser } = userRepository.hooks.getUserFilter(selected.name.toLowerCase());
+  const { data: dataUser } = userRepository.hooks.getUser(
+    pagePagination,
+    selected?.value,
+    search
+  );
 
   useEffect(() => {
-    if (selected.name === "All User") {
-      setDataSource(dataUser?.data);
-      setTotalPage(dataUser?.meta?.totalItems);
-    } else {
-      setDataSource(filterUser?.[0]);
-      setTotalPage(filterUser?.[1]);
-    }
-  }, [dataUser, filterUser]);
+    setDataSource(dataUser?.data);
+    setTotalPage(dataUser?.meta?.totalItems);
+  }, [dataUser]);
 
   const onDeleteUser = (record) => {
     Modal.confirm({
@@ -56,18 +59,22 @@ const User = () => {
     {
       title: "Fullname",
       dataIndex: "fullname",
+      width: 300,
     },
     {
       title: "Email",
       dataIndex: "email",
+      width: 300,
     },
     {
       title: "Phone",
       dataIndex: "phone",
+      width: 200,
     },
     {
       title: "Role",
       align: "center",
+      width: 150,
       dataIndex: "role",
       render: (role) => {
         if (role.name == "admin") {
@@ -88,6 +95,7 @@ const User = () => {
     {
       align: "center",
       title: "Actions",
+      width: 150,
       render: (record) => {
         return (
           <div className="text-center">
@@ -137,6 +145,11 @@ const User = () => {
               type="text"
               className="text-sm bg-white focus:outline-none py-2.5 px-4 rounded-sm shadow-sm"
               placeholder="Search"
+              onChange={(data) => {
+                setTimeout(() => {
+                  setSearch(data.target.value);
+                }, 1000);
+              }}
             />
           </div>
           <Listbox value="selected" onChange={setSelected}>

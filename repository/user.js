@@ -2,21 +2,17 @@ import useSwr from "swr";
 import { http } from "../utils/http";
 
 const url = {
-  user: (page) => `/users?page=${page}&limit=10`,
+  user: (page, filter, search ) => `/users?page=${page}&limit=10${filter ? `&filter.role.name=$in:${filter}`: ``}&search=${search}`,
   detailUser: (id) => `/users/${id}`,
   createUser: () => "/auth/register",
-  filterUser: (id) => `/users/filter/${id}`,
 };
 
 const hooks = {
-  getUser(page) {
-    return useSwr(url.user(page), http.get);
+  getUser(page, filter, search) {
+    return useSwr(url.user(page, filter, search), http.get);
   },
   getDetailUser(id) {
     return useSwr(url.detailUser(id), http.get);
-  },
-  getUserFilter(id) {
-    return useSwr(url.filterUser(id), http.get);
   },
 };
 
