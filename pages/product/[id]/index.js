@@ -122,7 +122,7 @@ const FormProduct = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-end mt-10">
+            <div className="flex items-center justify-end mt-4">
               <button
                 type="submit"
                 className="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite"

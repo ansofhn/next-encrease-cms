@@ -58,7 +58,7 @@ const Navbar = () => {
         <Link href={"/product"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
-              currentRoute === "/product"
+              currentRoute === "/product" || currentRoute === "/product/[id]"
                 ? "border-b-2 border-background/80 transition duration-300"
                 : ""
             }`}

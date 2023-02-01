@@ -1,8 +1,11 @@
 import { Listbox, Transition } from "@headlessui/react";
+import { message, Modal } from "antd";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { mutate } from "swr";
 import { productRepository } from "../repository/product";
+import { http } from "../utils/http";
 
 const productType = [
   { name: "All Products", value: "" },
@@ -14,11 +17,15 @@ const productType = [
 const Product = () => {
   const router = useRouter();
   const [selected, setSelected] = useState(productType[0]);
+  const [id, setId] = useState();
+  const [open, setOpen] = useState(false);
 
   const { data: dataProduct } = productRepository.hooks.getProduct();
+  const { data: detailProduct } = productRepository.hooks.getDetailproduct(id);
   const products = dataProduct?.data;
+  const detail = detailProduct?.data;
 
-  console.log(dataProduct, "test");
+  console.log(detail, "test");
 
   const handleDetailProduct = (id) => {
     router.push({ pathname: `/product/[id]`, query: { id: id } });
@@ -33,12 +40,34 @@ const Product = () => {
     }
   };
 
+  const handleDelete = (record) => {
+    console.log(record, ":)")
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "Delete this Product",
+      centered: true,
+      okText: "Yes",
+      okType: "danger",
+      onOk: async () => {
+        try {
+          await http.del(productRepository.url.detailproduct(record));
+          mutate(productRepository.url.product());
+        } catch (error) {
+          console.log(error.message, "error delete");
+          message.error("Failed Delete Product");
+        }
+      },
+    });
+  };
+
   return (
-    <div class="p-10 mx-8 bg-gray-100 mt-36">
-      <div class="space-y-10">
-        <div class="flex items-center justify-between">
-          <div class="text-xl font-semibold text-background/80">Products</div>
-          <div class="flex items-center space-x-4">
+    <div className="p-10 mx-8 bg-gray-100 mt-36">
+      <div className="space-y-10">
+        <div className="flex items-center justify-between">
+          <div className="text-xl font-semibold text-background/80">
+            Products
+          </div>
+          <div className="flex items-center space-x-4">
             <button
               onClick={() =>
                 router.push({
@@ -46,7 +75,7 @@ const Product = () => {
                   query: { id: "create" },
                 })
               }
-              class="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite"
+              className="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite"
             >
               Create Product
             </button>
@@ -54,12 +83,11 @@ const Product = () => {
               value="selected"
               onChange={(value) => {
                 setSelected(value);
-                // setPagePagination(1);
               }}
             >
               <Listbox.Button
                 placeholder="All Products"
-                class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
+                className="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
               >
                 <span>{selected?.name}</span>
                 <FaChevronDown />
@@ -99,35 +127,95 @@ const Product = () => {
             </Listbox>
           </div>
         </div>
-        <hr class="border-gray-200" />
+        <hr className="border-gray-200" />
 
-        <div class="grid gap-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 font-poppins">
+        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 font-poppins">
           {products?.map((data) => {
             return (
               <div
-                class="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105"
-                onClick={() => handleDetailProduct(data?.id)}
+                className="max-w-sm duration-500 rounded-md shadow-lg bg-slate-50 hover:scale-105"
+                onClick={() => {
+                  setId(data?.id);
+                  setOpen(true);
+                }}
                 key={data?.id}
               >
-                <div class="bg-gray-300 p-6">
+                <div className="p-6 bg-gray-300">
                   <img
                     src={`http://49.0.2.250:3002/file/${data?.image}`}
-                    class="w-full"
+                    className="w-full"
                   />
                 </div>
-                <div class="p-4 text-background space-y-4">
+                <div className="p-4 space-y-4 text-background">
                   <div className="text-sm font-semibold uppercase text-softBlue">
                     {data?.category?.name}
                   </div>
                   <div className="grid grid-cols-3">
-                    <h1 class="text-base font-semibold col-span-2">{truncateText(data?.name)}</h1>
-                    <p class="font-medium text-sm flex items-start justify-center">Rp. {data?.price}</p>
+                    <h1 className="col-span-2 text-base font-semibold">
+                      {truncateText(data?.name)}
+                    </h1>
+                    <p className="flex items-start justify-center text-sm font-medium">
+                      Rp. {data?.price}
+                    </p>
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
+        <Modal
+          open={open}
+          centered={true}
+          onCancel={() => setOpen(false)}
+          footer={[
+            <button
+              onClick={() => setOpen(false)}
+              className="px-5 py-2 text-sm font-medium bg-gray-200 rounded-sm text-background"
+            >
+              Cancel
+            </button>,
+            <button
+              onClick={() => {
+                setOpen(false);
+                handleDetailProduct(detail?.id);
+              }}
+              className="px-6 py-2 ml-3 text-sm font-medium rounded-sm bg-background text-softWhite"
+            >
+              Edit
+            </button>,
+            <button
+              onClick={() => {
+                setOpen(false);
+                handleDelete(detail?.id);
+              }}
+              className="px-4 py-2 ml-3 mr-5 text-sm font-medium rounded-sm bg-softBlue text-softWhite"
+            >
+              Delete
+            </button>,
+          ]}
+        >
+          <div className="px-6 pt-8 pb-2.5 space-y-6 font-poppins">
+            <div className="flex items-center justify-center p-4 bg-gray-300">
+              <img
+                src={`http://49.0.2.250:3002/file/${detail?.image}`}
+                className="w-full"
+              />
+            </div>
+            <div className="text-sm font-semibold uppercase text-softBlue">
+              {detail?.category?.name}
+            </div>
+            <div className="grid grid-cols-3">
+              <h1 className="col-span-2 text-lg font-semibold">
+                {detail?.name}
+              </h1>
+              <p className="flex items-start justify-center text-sm font-semibold">
+                Rp. {detail?.price}
+              </p>
+            </div>
+            <div>{detail?.description}</div>
+            <hr className="border-gray-200" />
+          </div>
+        </Modal>
       </div>
     </div>
   );
