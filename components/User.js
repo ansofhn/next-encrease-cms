@@ -147,6 +147,7 @@ const User = () => {
               placeholder="Search"
               onChange={(data) => {
                 setTimeout(() => {
+                  setPagePagination(1)
                   setSearch(data.target.value);
                 }, 1000);
               }}
