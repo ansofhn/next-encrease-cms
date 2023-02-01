@@ -35,14 +35,16 @@ const FormProduct = () => {
         <hr className="border-gray-200" />
         <div className="p-10 bg-white/80">
           <form onSubmit={onSubmitForm}>
-            <div className="grid grid-cols-2 w-[90%]">
-              <div className="p-4">
-                <Image
-                  src={`http://49.0.2.250:3002/file/${product?.image}`}
-                  width={500}
-                  height={500}
-                  alt={"Product Image"}
-                />
+            <div className="grid grid-cols-2 2xl:w-[90%]">
+              <div className="flex items-start justify-end p-4">
+                <div className="p-4 bg-gray-200 lg:p-6 xl:p-8">
+                  <Image
+                    src={`http://49.0.2.250:3002/file/${product?.image}`}
+                    width={500}
+                    height={500}
+                    alt={"Product Image"}
+                  />
+                </div>
               </div>
               <div className="p-4">
                 <label className="text-sm font-medium text-gray-500">
@@ -125,7 +127,7 @@ const FormProduct = () => {
                 type="submit"
                 className="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite"
               >
-                {`${id === "create" ? "Add New User" : "Save Change"}`}
+                {`${id === "create" ? "Add New Product" : "Save Change"}`}
               </button>
             </div>
           </form>

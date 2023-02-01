@@ -32,28 +32,11 @@ const Pages = () => {
                   ></path>
                 </svg>
               </button>
-              {/* <!-- Dropdown menu -->
-          <!-- <div
-            class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44"
-          >
-            <ul class="py-1 text-sm text-gray-700">
-              <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100"
-                  >This Week</a
-                >
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100"
-                  >This Year</a
-                >
-              </li>
-            </ul>
-          </div> --> */}
             </div>
           </div>
         </div>
         <hr class="border-gray-200" />
-        <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 font-poppins">
+        <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 font-poppins">
           <div class="p-4 space-y-3 shadow-sm bg-softWhite">
             <div class="font-semibold text-background">About Us</div>
             <hr class="border-gray-200" />

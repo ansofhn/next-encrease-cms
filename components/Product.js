@@ -1,9 +1,19 @@
+import { Listbox, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { Fragment, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 import { productRepository } from "../repository/product";
+
+const productType = [
+  { name: "All Products", value: "" },
+  { name: "Service", value: "service" },
+  { name: "Technology", value: "technology" },
+  { name: "Peripheral", value: "peripheral" },
+];
 
 const Product = () => {
   const router = useRouter();
+  const [selected, setSelected] = useState(productType[0]);
 
   const { data: dataProduct } = productRepository.hooks.getProduct();
   const products = dataProduct?.data;
@@ -14,57 +24,84 @@ const Product = () => {
     router.push({ pathname: `/product/[id]`, query: { id: id } });
   };
 
+  // Truncate Manual Formatter
+  const truncateText = (text) => {
+    if (text.split(" ").length > 10) {
+      return text.substring(0, 40) + "...";
+    } else {
+      return text;
+    }
+  };
+
   return (
     <div class="p-10 mx-8 bg-gray-100 mt-36">
       <div class="space-y-10">
         <div class="flex items-center justify-between">
           <div class="text-xl font-semibold text-background/80">Products</div>
           <div class="flex items-center space-x-4">
-            <button class="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite">
+            <button
+              onClick={() =>
+                router.push({
+                  pathname: "/product/[id]",
+                  query: { id: "create" },
+                })
+              }
+              class="px-4 py-2.5 text-sm font-medium rounded-sm bg-background text-softWhite"
+            >
               Create Product
             </button>
-            <div>
-              <button
-                class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-softWhite py-2.5 px-4 rounded-sm"
-                type="button"
+            <Listbox
+              value="selected"
+              onChange={(value) => {
+                setSelected(value);
+                // setPagePagination(1);
+              }}
+            >
+              <Listbox.Button
+                placeholder="All Products"
+                class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
               >
-                All Product
-                <svg
-                  class="w-4 h-4 ml-2"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
-              </button>
-              <div class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44">
-                <ul class="py-1 text-sm text-gray-700">
-                  <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">
-                      This Week
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">
-                      This Year
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+                <span>{selected?.name}</span>
+                <FaChevronDown />
+              </Listbox.Button>
+              <Transition
+                as={Fragment}
+                leave="transition ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Listbox.Options className="absolute z-10 w-40 py-1 overflow-auto text-sm origin-top-right bg-white rounded-sm shadow-lg right-[72px] mt-52 shadow-background/10 focus:outline-none sm:text-sm">
+                  {productType.map((products, productsIdx) => (
+                    <Listbox.Option
+                      key={productsIdx}
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 w-full px-4 ${
+                          active
+                            ? "bg-gray-100 text-background"
+                            : "text-backgorund"
+                        }`
+                      }
+                      value={products}
+                    >
+                      {({ selected }) => (
+                        <span
+                          className={`block truncate ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          {products.name}
+                        </span>
+                      )}
+                    </Listbox.Option>
+                  ))}
+                </Listbox.Options>
+              </Transition>
+            </Listbox>
           </div>
         </div>
         <hr class="border-gray-200" />
 
-        <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 font-poppins">
+        <div class="grid gap-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 font-poppins">
           {products?.map((data) => {
             return (
               <div
@@ -72,19 +109,19 @@ const Product = () => {
                 onClick={() => handleDetailProduct(data?.id)}
                 key={data?.id}
               >
-                <div class="bg-softWhite">
+                <div class="bg-gray-300 p-6">
                   <img
                     src={`http://49.0.2.250:3002/file/${data?.image}`}
                     class="w-full"
                   />
                 </div>
                 <div class="p-4 text-background space-y-4">
-                  <div className="text-sm text-softBlue">
+                  <div className="text-sm font-semibold uppercase text-softBlue">
                     {data?.category?.name}
                   </div>
-                  <div className="flex justify-between">
-                    <h1 class="text-lg font-semibold">{data?.name}</h1>
-                    <p class="font-light">Rp. {data?.price}</p>
+                  <div className="grid grid-cols-3">
+                    <h1 class="text-md font-semibold col-span-2">{truncateText(data?.name)}</h1>
+                    <p class="font-light flex items-start justify-center">Rp. {data?.price}</p>
                   </div>
                 </div>
               </div>
