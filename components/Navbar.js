@@ -66,6 +66,17 @@ const Navbar = () => {
             Product
           </div>
         </Link>
+        <Link href={"#"}>
+          <div
+            className={`p-2 py-5 cursor-pointer ${
+              currentRoute === "/rating"
+                ? "border-b-2 border-background/80 transition duration-300"
+                : ""
+            }`}
+          >
+            Review & Rating
+          </div>
+        </Link>
         <Link href={"/page"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
@@ -88,7 +99,7 @@ const Navbar = () => {
             User Admin
           </div>
         </Link>
-        <Link href={"/forum"}>
+        <Link href={"#"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
               currentRoute === "/forum"

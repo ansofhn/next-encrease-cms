@@ -20,6 +20,7 @@ module.exports = {
         softGray: "#E5E5E5",
         softBlue: "#1089FF",
         background: "#23374D",
+        softDark: "#0F141E",
       },
     },
   },

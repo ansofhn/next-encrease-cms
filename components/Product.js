@@ -120,8 +120,8 @@ const Product = () => {
                     {data?.category?.name}
                   </div>
                   <div className="grid grid-cols-3">
-                    <h1 class="text-md font-semibold col-span-2">{truncateText(data?.name)}</h1>
-                    <p class="font-light flex items-start justify-center">Rp. {data?.price}</p>
+                    <h1 class="text-base font-semibold col-span-2">{truncateText(data?.name)}</h1>
+                    <p class="font-medium text-sm flex items-start justify-center">Rp. {data?.price}</p>
                   </div>
                 </div>
               </div>
