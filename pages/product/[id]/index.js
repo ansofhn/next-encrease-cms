@@ -1,9 +1,9 @@
-import { message, Select, Upload } from "antd";
+import { message, Select } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
 import { mutate } from "swr";
+import UploadImage from "../../../components/UploadImage";
 import { appConfig } from "../../../config/app";
 import CMSLayout from "../../../layouts/CMSLayout";
 import { productRepository } from "../../../repository/product";
@@ -28,12 +28,6 @@ const FormProduct = () => {
   useEffect(() => {
     detailproduct ? setMode("edit") : setMode("create");
   }, [detailproduct]);
-
-  const handleImage = (args) => {
-    setImage(args.file);
-  };
-
-  console.log(product, ":(");
 
   // Form Control
   const nameRef = useRef();
@@ -128,25 +122,7 @@ const FormProduct = () => {
                       alt={"Product Image"}
                     />
                   ) : (
-                    <Upload.Dragger
-                      multiple={false}
-                      showUploadList={false}
-                      customRequest={handleImage}
-                    >
-                      <div className="flex items-center justify-center w-full h-full font-poppins">
-                        <div className="flex flex-col space-y-2">
-                          <div className="mx-auto">
-                            <AiOutlineCloudUpload className="text-7xl text-softDark/40" />
-                          </div>
-                          <div className="text-base font-medium text-center text-softDark/40">
-                            Select Image to Upload
-                          </div>
-                          <div className="text-xs text-center text-softDark/30">
-                            or Drag and Drop, Copy or Paste here
-                          </div>
-                        </div>
-                      </div>
-                    </Upload.Dragger>
+                    <UploadImage setImage={setImage} />
                   )}
                 </div>
               </div>
@@ -170,7 +146,7 @@ const FormProduct = () => {
                     }}
                     bordered={false}
                   >
-                    {category.map((data) => (
+                    {category?.map((data) => (
                       <Option
                         className="text-xs hover:bg-softGray hover:text-background/80 focus:bg-softGray focus:text-background/80"
                         value={data.id}
