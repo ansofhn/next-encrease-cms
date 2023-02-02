@@ -25,7 +25,8 @@ const Product = () => {
   const products = dataProduct?.data;
   const detail = detailProduct?.data;
 
-  console.log(detail, "test");
+  const { data: categoryProduct } = productRepository.hooks.getCategory()
+  const category = categoryProduct?.data
 
   const handleDetailProduct = (id) => {
     router.push({ pathname: `/product/[id]`, query: { id: id } });
@@ -98,8 +99,8 @@ const Product = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute z-10 w-40 py-1 overflow-auto text-sm origin-top-right bg-white rounded-sm shadow-lg right-[72px] mt-52 shadow-background/10 focus:outline-none sm:text-sm">
-                  {productType.map((products, productsIdx) => (
+                <Listbox.Options className="absolute z-0 w-40 py-1 overflow-auto text-sm bg-white rounded-sm shadow-lg right-[72px] top-[235px] shadow-background/10 focus:outline-none sm:text-sm">
+                  {category.map((products, productsIdx) => (
                     <Listbox.Option
                       key={productsIdx}
                       className={({ active }) =>

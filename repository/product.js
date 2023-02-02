@@ -4,6 +4,7 @@ import { http } from "../utils/http";
 const url = {
   product: () => `/products`,
   detailproduct: (id) => `/products/${id}`,
+  category: () => `/category`,
 };
 
 const hooks = {
@@ -12,6 +13,9 @@ const hooks = {
   },
   getDetailproduct(id) {
     return useSwr(url.detailproduct(id), http.get);
+  },
+  getCategory() {
+    return useSwr(url.category(), http.get);
   },
 };
 
