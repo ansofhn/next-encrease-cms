@@ -1,10 +1,15 @@
-import { Upload } from "antd";
+import { message, Select, Upload } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { mutate } from "swr";
+import { appConfig } from "../../../config/app";
 import CMSLayout from "../../../layouts/CMSLayout";
 import { productRepository } from "../../../repository/product";
+
+const SuperAgent = require("superagent");
+const { Option } = Select;
 
 const FormProduct = () => {
   const router = useRouter();
@@ -12,12 +17,13 @@ const FormProduct = () => {
 
   const [mode, setMode] = useState("create");
   const [image, setImage] = useState();
+  const [categoryId, setCategoryId] = useState();
 
   const { data: detailproduct } = productRepository.hooks.getDetailproduct(id);
   const product = detailproduct?.data;
 
-  const { data: categoryProduct } = productRepository.hooks.getCategory()
-  const category = categoryProduct?.data
+  const { data: categoryProduct } = productRepository.hooks.getCategory();
+  const category = categoryProduct?.data;
 
   useEffect(() => {
     detailproduct ? setMode("edit") : setMode("create");
@@ -27,8 +33,71 @@ const FormProduct = () => {
     setImage(args.file);
   };
 
+  console.log(product, ":(");
+
+  // Form Control
+  const nameRef = useRef();
+  const priceRef = useRef();
+  const descriptionRef = useRef();
+  const stockRef = useRef();
+  const ownerRef = useRef();
+
   const onSubmitForm = async (event) => {
     event.preventDefault();
+    const oldData = product;
+    try {
+      if (mode === "create") {
+        const data = {
+          name: nameRef.current.value,
+          price: Number(priceRef.current.value),
+          description: descriptionRef.current.value,
+          stok: Number(stockRef.current.value),
+          image: image,
+          categoryId: categoryId,
+        };
+        console.log(data, ":))");
+        await SuperAgent.post(appConfig.apiUrl + "/products")
+          .send(data)
+          .set(
+            "Authorization",
+            "Bearer " + localStorage.getItem("access_token")
+          )
+          .then((res) => console.log(res));
+        await mutate(productRepository.url.product());
+      } else {
+        const data = {
+          name: nameRef.current.value ? nameRef.current.value : oldData.name,
+          price: Number(
+            priceRef.current.value ? priceRef.current.value : oldData.price
+          ),
+          description: descriptionRef.current.value
+            ? descriptionRef.current.value
+            : oldData.description,
+          stok: Number(
+            stockRef.current.value ? stockRef.current.value : oldData.stok
+          ),
+          image: image ? image : oldData.image,
+          categoryId: categoryId ? categoryId : oldData?.category?.id,
+        };
+        console.log(data, ":))");
+        await SuperAgent.put(appConfig.apiUrl + `/products/${id}`)
+          .send(data)
+          .set(
+            "Authorization",
+            "Bearer " + localStorage.getItem("access_token")
+          )
+          .then((res) => console.log(res));
+        await mutate(productRepository.url.product());
+      }
+      message
+        .success(
+          `Successfully ${mode === "create" ? "Created" : "Updated"} Product`
+        )
+        .then(router.push("/product"));
+    } catch (e) {
+      message.error("Failed to Create Product");
+      console.log(e.message);
+    }
   };
 
   return (
@@ -85,21 +154,38 @@ const FormProduct = () => {
                 <label className="text-sm font-medium text-gray-500">
                   Category
                 </label>
-                <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
-                  <input
-                    //   ref={categoryRef}
-                    defaultValue={product?.category?.name.toUpperCase()}
-                    type="text"
-                    required
-                    className="w-full text-xs bg-transparent text-background/80 focus:outline-none"
-                  />
+                <div>
+                  <Select
+                    className="mb-5 text-xs border rounded-md border-textColor hover:border-textColor"
+                    placeholder={`${
+                      detailproduct
+                        ? product?.category?.name
+                        : "Choose Category"
+                    }`}
+                    onSelect={(value) => {
+                      setCategoryId(value);
+                    }}
+                    style={{
+                      width: 500,
+                    }}
+                    bordered={false}
+                  >
+                    {category.map((data) => (
+                      <Option
+                        className="text-xs hover:bg-softGray hover:text-background/80 focus:bg-softGray focus:text-background/80"
+                        value={data.id}
+                      >
+                        {data.name}
+                      </Option>
+                    ))}
+                  </Select>
                 </div>
                 <label className="text-sm font-medium text-gray-500">
                   Name
                 </label>
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
-                    //   ref={nameRef}
+                    ref={nameRef}
                     defaultValue={product?.name}
                     type="text"
                     required
@@ -111,7 +197,7 @@ const FormProduct = () => {
                 </label>
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
-                    //   ref={priceRef}
+                    ref={priceRef}
                     defaultValue={product?.price}
                     type="number"
                     required
@@ -125,7 +211,7 @@ const FormProduct = () => {
                     </label>
                     <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                       <input
-                        //   ref={ownerRef}
+                        ref={ownerRef}
                         defaultValue={product?.owner || "NAMA OWNER"}
                         type="text"
                         required
@@ -140,7 +226,7 @@ const FormProduct = () => {
                 </label>
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <input
-                    //   ref={stockRef}
+                    ref={stockRef}
                     defaultValue={product?.stok}
                     type="number"
                     required
@@ -152,7 +238,7 @@ const FormProduct = () => {
                 </label>
                 <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
                   <textarea
-                    //   ref={descriptionRef}
+                    ref={descriptionRef}
                     defaultValue={product?.description}
                     type="text"
                     required

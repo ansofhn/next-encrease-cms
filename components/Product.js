@@ -7,12 +7,7 @@ import { mutate } from "swr";
 import { productRepository } from "../repository/product";
 import { http } from "../utils/http";
 
-const productType = [
-  { name: "All Products", value: "" },
-  { name: "Service", value: "service" },
-  { name: "Technology", value: "technology" },
-  { name: "Peripheral", value: "peripheral" },
-];
+const productType = [{ name: "All Products", value: "" }];
 
 const Product = () => {
   const router = useRouter();
@@ -25,8 +20,10 @@ const Product = () => {
   const products = dataProduct?.data;
   const detail = detailProduct?.data;
 
-  const { data: categoryProduct } = productRepository.hooks.getCategory()
-  const category = categoryProduct?.data
+  const { data: categoryProduct } = productRepository.hooks.getCategory();
+  const category = categoryProduct?.data;
+
+  console.log(products, ":)))")
 
   const handleDetailProduct = (id) => {
     router.push({ pathname: `/product/[id]`, query: { id: id } });
@@ -42,7 +39,7 @@ const Product = () => {
   };
 
   const handleDelete = (record) => {
-    console.log(record, ":)")
+    console.log(record, ":)");
     Modal.confirm({
       title: "Are you sure?",
       content: "Delete this Product",
@@ -88,7 +85,7 @@ const Product = () => {
             >
               <Listbox.Button
                 placeholder="All Products"
-                className="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
+                className="text-background w-60 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
               >
                 <span>{selected?.name}</span>
                 <FaChevronDown />
@@ -99,8 +96,31 @@ const Product = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute z-0 w-40 py-1 overflow-auto text-sm bg-white rounded-sm shadow-lg right-[72px] top-[235px] shadow-background/10 focus:outline-none sm:text-sm">
-                  {category.map((products, productsIdx) => (
+                <Listbox.Options className="absolute z-0 w-60 py-1 overflow-auto text-sm bg-white rounded-sm shadow-lg right-[72px] top-[235px] shadow-background/10 focus:outline-none sm:text-sm">
+                  {productType?.map((products, productsIdx) => (
+                    <Listbox.Option
+                      key={productsIdx}
+                      className={({ active }) =>
+                        `relative cursor-default select-none py-2 w-full px-4 ${
+                          active
+                            ? "bg-gray-100 text-background"
+                            : "text-backgorund"
+                        }`
+                      }
+                      value={products}
+                    >
+                      {({ selected }) => (
+                        <span
+                          className={`block truncate ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          {products.name}
+                        </span>
+                      )}
+                    </Listbox.Option>
+                  ))}
+                  {category?.map((products, productsIdx) => (
                     <Listbox.Option
                       key={productsIdx}
                       className={({ active }) =>

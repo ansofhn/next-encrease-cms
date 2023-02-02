@@ -36,10 +36,15 @@ const Navbar = () => {
               <FaBell className="flex items-center justify-center w-4 h-6 text-background/50" />
             </div>
           </div>
-          <div className="flex items-center cursor-pointer gap-x-4">
+          {/* <div className="flex items-center cursor-pointer gap-x-4">
             <div className="p-5 rounded-full bg-softGray"></div>
             <div className="text-sm font-medium text-background">Admin</div>
-          </div>
+          </div> */}
+          <Link href={"/auth/login"}>
+            <button className="px-3 py-1.5 font-bold uppercase transition duration-300 border-2 rounded-md cursor-pointer text-background border-background">
+              sign in
+            </button>
+          </Link>
         </div>
       </div>
       <hr className="mx-10 border-gray-200" />

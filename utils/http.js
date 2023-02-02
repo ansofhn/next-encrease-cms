@@ -30,6 +30,10 @@ export const http = {
   post: async (url, data) => {
     try {
       let req = SuperAgent.post(`${appConfig.apiUrl}${url}`);
+      req = req.set(
+        "Authorization",
+        "Bearer " + localStorage.getItem("access_token")
+      )
       const resp = await req;
       return resp?.body;
     } catch (e) {
