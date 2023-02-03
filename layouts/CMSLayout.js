@@ -10,8 +10,6 @@ const CMSLayout = ({ children }) => {
     setToken(authentication.isVerified());
   }, []);
 
-  console.log(token, ":)")
-
   return (
     <div className="bg-softWhite">
       <Head>

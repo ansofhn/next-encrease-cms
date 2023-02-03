@@ -73,7 +73,6 @@ const FormProduct = () => {
           image: image ? image : oldData.image,
           categoryId: categoryId ? categoryId : oldData?.category?.id,
         };
-        console.log(data, ":))");
         await SuperAgent.put(appConfig.apiUrl + `/products/${id}`)
           .send(data)
           .set(
@@ -113,7 +112,13 @@ const FormProduct = () => {
           <form onSubmit={onSubmitForm}>
             <div className="grid grid-cols-2 2xl:w-[90%]">
               <div className="flex items-start justify-end p-4">
-                <div className="w-full h-full md:h-[50%] lg:h-[63%] p-4 bg-gray-100 xl:w-[98%] xl:h-[97%] 2xl:w-[77%] 2xl:h-[96%] lg:p-6 xl:p-8">
+                <div
+                  className={`w-full h-full ${
+                    mode === "edit"
+                      ? "h-auto"
+                      : "md:h-[50%] lg:h-[63%] xl:w-[98%] xl:h-[97%] 2xl:w-[77%] 2xl:h-[96%]"
+                  } p-4 bg-gray-100 lg:p-6 xl:p-8`}
+                >
                   {mode === "edit" ? (
                     <Image
                       src={`http://49.0.2.250:3002/file/${product?.image}`}
@@ -132,7 +137,7 @@ const FormProduct = () => {
                 </label>
                 <div>
                   <Select
-                    className="mb-5 text-xs border rounded-md border-textColor hover:border-textColor"
+                    className="w-full py-1.5a mb-5 text-xs border rounded-md border-textColor hover:border-textColor"
                     placeholder={`${
                       detailproduct
                         ? product?.category?.name
@@ -140,9 +145,6 @@ const FormProduct = () => {
                     }`}
                     onSelect={(value) => {
                       setCategoryId(value);
-                    }}
-                    style={{
-                      width: 500,
                     }}
                     bordered={false}
                   >

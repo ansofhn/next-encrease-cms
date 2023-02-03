@@ -7,7 +7,7 @@ const UploadImage = ({ setImage }) => {
     name: "file",
     action: "http://49.0.2.250:3002/file/upload",
     multiple: false,
-    showUploadList: true,
+    showUploadList: false,
     onChange(args) {
       const resp = args?.file?.response?.data?.filename;
       if (args.file.status !== "uploading") {

@@ -1,7 +1,7 @@
 import { Listbox, Transition } from "@headlessui/react";
-import { message, Modal } from "antd";
+import { message, Modal, Pagination } from "antd";
 import { useRouter } from "next/router";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { mutate } from "swr";
 import { productRepository } from "../repository/product";
@@ -12,18 +12,27 @@ const productType = [{ name: "All Products", value: "" }];
 const Product = () => {
   const router = useRouter();
   const [selected, setSelected] = useState(productType[0]);
+  const [pagePagination, setPagePagination] = useState(1);
+  const [totalPage, setTotalPage] = useState();
   const [id, setId] = useState();
   const [open, setOpen] = useState(false);
 
-  const { data: dataProduct } = productRepository.hooks.getProduct();
+  const { data: dataProduct } = productRepository.hooks.getProduct(
+    pagePagination,
+    selected?.name === "All Products" ? "" : selected?.name
+  );
   const { data: detailProduct } = productRepository.hooks.getDetailproduct(id);
   const products = dataProduct?.data;
   const detail = detailProduct?.data;
 
+  console.log(selected , "test")
+
+  useEffect(() => {
+    setTotalPage(dataProduct?.meta?.totalItems);
+  }, [dataProduct]);
+
   const { data: categoryProduct } = productRepository.hooks.getCategory();
   const category = categoryProduct?.data;
-
-  console.log(products, ":)))")
 
   const handleDetailProduct = (id) => {
     router.push({ pathname: `/product/[id]`, query: { id: id } });
@@ -149,7 +158,6 @@ const Product = () => {
           </div>
         </div>
         <hr className="border-gray-200" />
-
         <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 font-poppins">
           {products?.map((data) => {
             return (
@@ -184,6 +192,15 @@ const Product = () => {
             );
           })}
         </div>
+        <div className="flex items-center justify-center">
+          <Pagination
+            current={pagePagination}
+            pageSize={12}
+            total={totalPage}
+            onChange={(current) => setPagePagination(current)}
+          />
+        </div>
+
         <Modal
           open={open}
           centered={true}
