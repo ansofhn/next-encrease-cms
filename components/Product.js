@@ -90,6 +90,7 @@ const Product = () => {
               value="selected"
               onChange={(value) => {
                 setSelected(value);
+                setPagePagination(1)
               }}
             >
               <Listbox.Button
