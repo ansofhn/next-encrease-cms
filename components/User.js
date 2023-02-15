@@ -60,22 +60,26 @@ const User = () => {
       title: "Fullname",
       dataIndex: "fullname",
       width: 300,
+      key: "fullname",
     },
     {
       title: "Email",
       dataIndex: "email",
       width: 300,
+      key: "email",
     },
     {
       title: "Phone",
       dataIndex: "phone",
       width: 200,
+      key: "phone",
     },
     {
       title: "Role",
       align: "center",
       width: 150,
       dataIndex: "role",
+      key: "role",
       render: (role) => {
         if (role.name == "admin") {
           return (
@@ -147,19 +151,22 @@ const User = () => {
               placeholder="Search"
               onChange={(data) => {
                 setTimeout(() => {
-                  setPagePagination(1)
+                  setPagePagination(1);
                   setSearch(data.target.value);
                 }, 1000);
               }}
             />
           </div>
-          <Listbox value="selected" onChange={(value)=>{
-            setSelected(value)
-            setPagePagination(1)
-          }}>
+          <Listbox
+            value="selected"
+            onChange={(value) => {
+              setSelected(value);
+              setPagePagination(1);
+            }}
+          >
             <Listbox.Button
               placeholder="All User"
-              class="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
+              className="text-background w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-white py-2.5 px-4 rounded-sm"
             >
               <span>{selected?.name}</span>
               <FaChevronDown />

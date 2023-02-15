@@ -1,11 +1,20 @@
+import { message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { FaCog, FaBell, FaSearch } from "react-icons/fa";
+import { MdOutlineLogout } from "react-icons/md";
+import { authentication } from "../utils/authentication";
+import { TokenUtil } from "../utils/token";
 
 const Navbar = () => {
   const router = useRouter();
   const currentRoute = router.pathname;
+
+  const handleLogout = () => {
+    message.success("Success Logout");
+    authentication.clearAccesToken();
+  };
   return (
     <nav className="fixed top-0 z-10 w-full shadow-lg shadow-background/5 bg-softWhite">
       <div className="flex flex-wrap items-center justify-between p-6 mx-auto sm:px-10 sm:py-6">
@@ -36,15 +45,24 @@ const Navbar = () => {
               <FaBell className="flex items-center justify-center w-4 h-6 text-background/50" />
             </div>
           </div>
-          {/* <div className="flex items-center cursor-pointer gap-x-4">
-            <div className="p-5 rounded-full bg-softGray"></div>
-            <div className="text-sm font-medium text-background">Admin</div>
-          </div> */}
-          <Link href={"/auth/login"}>
-            <button className="px-3 py-1.5 font-bold uppercase transition duration-300 border-2 rounded-md cursor-pointer text-background border-background">
-              sign in
-            </button>
-          </Link>
+          {TokenUtil.access_token ? (
+            <div className="flex items-center cursor-pointer gap-x-4">
+              <div className="p-5 rounded-full bg-softGray"></div>
+              <div className="text-sm font-medium text-background">Admin</div>
+              <button
+                className="text-lg text-background font-extralight"
+                onClick={handleLogout}
+              >
+                <MdOutlineLogout />
+              </button>
+            </div>
+          ) : (
+            <Link href={"/auth/login"}>
+              <button className="px-3 py-1.5 font-bold uppercase transition duration-300 border-2 rounded-md cursor-pointer text-background border-background">
+                sign in
+              </button>
+            </Link>
+          )}
         </div>
       </div>
       <hr className="mx-10 border-gray-200" />
