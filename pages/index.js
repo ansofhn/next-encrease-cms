@@ -1,17 +1,18 @@
-import React from "react";
-import Dashboard from "../components/Dashboard";
-import CMSLayout from "../layouts/CMSLayout";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { TokenUtil } from "../utils/token";
 
 const Home = () => {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    TokenUtil.loadToken();
+    if (TokenUtil.access_token) {
+      router.push("/dashboard");
+    } else {
+      router.push("/auth/login");
+    }
+  }, []);
+  return;
 };
 
 export default Home;
-
-Home.getLayout = (page) => (
-  <CMSLayout children={page} />
-);
