@@ -67,10 +67,10 @@ const Navbar = () => {
       </div>
       <hr className="mx-10 border-gray-200" />
       <div className="flex flex-col gap-4 p-2 mx-16 text-sm font-medium text-gray-500 md:p-0 md:flex-row md:gap-10">
-        <Link href={"/"}>
+        <Link href={"/dashboard"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
-              currentRoute === "/"
+              currentRoute === "/dashboard"
                 ? "border-b-2 border-background/80 transition duration-300"
                 : ""
             }`}
@@ -100,7 +100,7 @@ const Navbar = () => {
             Review & Rating
           </div>
         </Link>
-        <Link href={"/page"}>
+        {/* <Link href={"/page"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
               currentRoute === "/page"
@@ -110,7 +110,7 @@ const Navbar = () => {
           >
             Page
           </div>
-        </Link>
+        </Link> */}
         <Link href={"/user"}>
           <div
             className={`p-2 py-5 cursor-pointer ${

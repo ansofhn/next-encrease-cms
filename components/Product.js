@@ -25,8 +25,6 @@ const Product = () => {
   const products = dataProduct?.data;
   const detail = detailProduct?.data;
 
-  console.log(selected , "test")
-
   useEffect(() => {
     setTotalPage(dataProduct?.meta?.totalItems);
   }, [dataProduct]);
@@ -48,7 +46,6 @@ const Product = () => {
   };
 
   const handleDelete = (record) => {
-    console.log(record, ":)");
     Modal.confirm({
       title: "Are you sure?",
       content: "Delete this Product",
@@ -58,7 +55,7 @@ const Product = () => {
       onOk: async () => {
         try {
           await http.del(productRepository.url.detailproduct(record));
-          mutate(productRepository.url.product());
+          await mutate(productRepository.url.product());
         } catch (error) {
           console.log(error.message, "error delete");
           message.error("Failed Delete Product");
