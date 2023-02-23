@@ -80,13 +80,13 @@ const Dashboard = () => {
   // Doughnut Charts
 
   const data = {
-    backgroundColor: ["#23374D", "#E5E5E5", "#1089FF"],
-    labels: ["SIJA", "TKJ", "RPL"],
+    backgroundColor: ["#23374D", "#E5E5E5"],
+    labels: ["Goods", "Services"],
     datasets: [
       {
-        label: "Total User",
-        data: [50, 40, 30],
-        backgroundColor: ["#23374D", "#E5E5E5", "#1089FF"],
+        label: "Amount",
+        data: [70, 30],
+        backgroundColor: ["#23374D", "#E5E5E5"],
         hoverOffset: 4,
       },
     ],
@@ -114,47 +114,9 @@ const Dashboard = () => {
           <div className="text-xl font-semibold text-background/80">
             Dashboard
           </div>
-          <div>
-            <button
-              className="text-background/80 w-40 shadow-sm font-medium text-sm flex items-center justify-between bg-softWhite py-2.5 px-4 rounded-sm"
-              type="button"
-            >
-              This Month
-              <svg
-                className="w-4 h-4 ml-2"
-                aria-hidden="true"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                ></path>
-              </svg>
-            </button>
-
-            <div className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44">
-              <ul className="py-1 text-sm text-gray-700">
-                <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                    This Week
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                    This Year
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-3 gap-6 xl:grid-cols-4">
           <div className="px-8 py-6 space-y-5 font-medium rounded-sm bg-softWhite text-background/80">
             <div className="text-sm">Total User</div>
             <div className="text-3xl font-bold">120</div>
@@ -168,9 +130,9 @@ const Dashboard = () => {
             <div className="text-3xl font-bold">100</div>
           </div>
 
-          <div className="flex flex-col justify-between row-span-3 p-6 rounded-sm bg-softWhite">
-            <div className="text-xl font-semibold text-background/80">
-              New User
+          <div className="flex-col justify-between hidden row-span-3 p-6 rounded-sm xl:flex bg-softWhite">
+            <div className="text-base font-semibold xl:text-xl text-background/80">
+              Category Product
             </div>
             <Doughnut
               data={data}
@@ -179,7 +141,9 @@ const Dashboard = () => {
             />
             <div className="flex items-center p-3 bg-gray-100 rounded-sm">
               <div className="p-3 rounded-sm bg-softWhite flex items-center w-[50%]">
-                <div className="w-[50%] bg-background/50"></div>
+                <div className="w-[50%] p-2">
+                  <div className="w-full h-8 rounded-sm bg-background/90"></div>
+                </div>
                 <div>
                   <div className="text-xl font-semibold text-background/80">
                     30%
@@ -194,7 +158,7 @@ const Dashboard = () => {
                   40
                 </div>
                 <div className="text-xs font-medium text-background/70">
-                  Total New User
+                  Total Sold
                 </div>
               </div>
             </div>
