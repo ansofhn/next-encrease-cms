@@ -108,7 +108,7 @@ const Product = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute z-0 w-60 py-1 overflow-auto text-sm bg-white rounded-sm shadow-lg right-[72px] top-[235px] shadow-background/10 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute z-10 w-60 py-1 overflow-auto text-sm bg-white rounded-sm shadow-lg right-[72px] top-[235px] shadow-background/10 focus:outline-none sm:text-sm">
                   {productType?.map((products, productsIdx) => (
                     <Listbox.Option
                       key={productsIdx}

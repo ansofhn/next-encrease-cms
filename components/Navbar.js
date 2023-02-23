@@ -16,7 +16,7 @@ const Navbar = () => {
     authentication.clearAccesToken();
   };
   return (
-    <nav className="fixed top-0 z-10 w-full shadow-lg shadow-background/5 bg-softWhite">
+    <nav className="fixed top-0 z-20 w-full shadow-lg shadow-background/5 bg-softWhite">
       <div className="flex flex-wrap items-center justify-between p-6 mx-auto sm:px-10 sm:py-6">
         <div className="flex items-center gap-x-12">
           <Link href={"/"}>
@@ -25,7 +25,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          <div className="flex items-center bg-gray-100 rounded-sm w-60">
+          {/* <div className="flex items-center bg-gray-100 rounded-sm w-60">
             <div className="py-2.5 pl-4 text-background/50 text-sm">
               <FaSearch />
             </div>
@@ -34,20 +34,19 @@ const Navbar = () => {
               className="w-full py-2.5 px-3 bg-gray-100 focus:outline-none text-background/60 text-sm"
               placeholder="Search"
             />
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center gap-x-10">
-          <div className="flex items-center gap-x-6">
+          {/* <div className="flex items-center gap-x-6">
             <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full cursor-pointer">
               <FaCog className="flex items-center justify-center w-4 h-6 text-background/50" />
             </div>
             <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full cursor-pointer">
               <FaBell className="flex items-center justify-center w-4 h-6 text-background/50" />
             </div>
-          </div>
+          </div> */}
           {TokenUtil.access_token ? (
-            <div className="flex items-center cursor-pointer gap-x-4">
-              <div className="p-5 rounded-full bg-softGray"></div>
+            <div className="flex items-center px-6 py-2.5 border rounded-lg cursor-pointer border-softGray gap-x-4 ">
               <div className="text-sm font-medium text-background">Admin</div>
               <button
                 className="text-lg text-background font-extralight"
@@ -122,7 +121,7 @@ const Navbar = () => {
             User Admin
           </div>
         </Link>
-        <Link href={"#"}>
+        {/* <Link href={"#"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
               currentRoute === "/forum"
@@ -132,7 +131,7 @@ const Navbar = () => {
           >
             Forum
           </div>
-        </Link>
+        </Link> */}
       </div>
     </nav>
   );
