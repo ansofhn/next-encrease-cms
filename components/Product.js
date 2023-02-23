@@ -238,7 +238,7 @@ const Product = () => {
           <div className="px-6 pt-8 pb-2.5 space-y-6 font-poppins">
             <div className="flex items-center justify-center p-4 bg-gray-300">
               <img
-                src={`http://49.0.2.250:3002/file/${detail?.image}`}
+                src={`http://49.0.2.250:3002/file/${detail?.image[0]}`}
                 className="w-full"
               />
             </div>
