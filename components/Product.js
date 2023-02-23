@@ -55,7 +55,12 @@ const Product = () => {
       onOk: async () => {
         try {
           await http.del(productRepository.url.detailproduct(record));
-          await mutate(productRepository.url.product());
+          await mutate(
+            productRepository.url.product(
+              pagePagination,
+              selected?.name === "All Products" ? "" : selected?.name
+            )
+          );
         } catch (error) {
           console.log(error.message, "error delete");
           message.error("Failed Delete Product");
@@ -87,7 +92,7 @@ const Product = () => {
               value="selected"
               onChange={(value) => {
                 setSelected(value);
-                setPagePagination(1)
+                setPagePagination(1);
               }}
             >
               <Listbox.Button

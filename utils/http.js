@@ -44,6 +44,10 @@ export const http = {
   del: async (url) => {
     try {
       let req = SuperAgent.del(`${appConfig.apiUrl}${url}`);
+      req = req.set(
+        "Authorization",
+        "Bearer " + localStorage.getItem("access_token")
+      )
       const resp = await req;
       return resp?.body;
     } catch (e) {

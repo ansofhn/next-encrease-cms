@@ -1,13 +1,23 @@
 import { message, Upload } from "antd";
 import React from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import { AiOutlineCloudUpload, AiOutlineDelete } from "react-icons/ai";
 
 const UploadImage = ({ setImage }) => {
   const props = {
     name: "file",
     action: "http://49.0.2.250:3002/file/upload",
     multiple: false,
-    showUploadList: false,
+    listType: "picture",
+    accept: ".png,.jpg,.jpeg",
+    showUploadList: {
+      showRemoveIcon: true,
+      removeIcon: (
+        <AiOutlineDelete
+          onClick={(e) => console.log(e, "custom removeIcon event")}
+        />
+      ),
+    },
+    maxCount: 5,
     onChange(args) {
       const resp = args?.file?.response?.data?.filename;
       if (args.file.status !== "uploading") {
@@ -23,7 +33,7 @@ const UploadImage = ({ setImage }) => {
   };
   return (
     <Upload.Dragger {...props}>
-      <div className="flex items-center justify-center w-full h-full font-poppins">
+      <div className="flex items-center justify-center font-poppins">
         <div className="flex flex-col space-y-2">
           <div className="mx-auto">
             <AiOutlineCloudUpload className="text-7xl text-softDark/40" />
