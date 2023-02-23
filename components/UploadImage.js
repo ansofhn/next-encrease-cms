@@ -1,8 +1,9 @@
 import { message, Upload } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineCloudUpload, AiOutlineDelete } from "react-icons/ai";
 
 const UploadImage = ({ setImage }) => {
+
   const props = {
     name: "file",
     action: "http://49.0.2.250:3002/file/upload",
@@ -19,12 +20,12 @@ const UploadImage = ({ setImage }) => {
     },
     maxCount: 5,
     onChange(args) {
-      const resp = args?.file?.response?.data?.filename;
+      const resp = args?.fileList
       if (args.file.status !== "uploading") {
         console.log(args.file, args.fileList);
       }
       if (args.file.status === "done") {
-        setImage(resp);
+        setImage(resp)
         message.success(`file uploaded successfully`);
       } else if (args.file.status === "error") {
         message.error(`file upload failed.`);
@@ -41,7 +42,7 @@ const UploadImage = ({ setImage }) => {
           <div className="text-base font-medium text-center text-softDark/40">
             Select Image to Upload
           </div>
-          <div className="text-xs text-center text-softDark/30">
+          <div className=" text-[10px] lg:text-xs text-center text-softDark/30">
             or Drag and Drop, Copy or Paste here
           </div>
         </div>

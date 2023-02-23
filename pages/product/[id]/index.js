@@ -21,15 +21,22 @@ const FormProduct = () => {
   const { id } = router.query;
 
   const [mode, setMode] = useState("create");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState([]);
   const [categoryId, setCategoryId] = useState();
-  const [type , setType] = useState()
+  const [type, setType] = useState();
 
   const { data: detailproduct } = productRepository.hooks.getDetailproduct(id);
   const product = detailproduct?.data;
 
   const { data: categoryProduct } = productRepository.hooks.getCategory();
   const category = categoryProduct?.data;
+
+  console.log(product, ":))");
+
+  const result = [];
+  image.map((data) => {
+    result.push(data?.response?.data?.filename);
+  });
 
   useEffect(() => {
     detailproduct ? setMode("edit") : setMode("create");
@@ -40,7 +47,6 @@ const FormProduct = () => {
   const priceRef = useRef();
   const descriptionRef = useRef();
   const stockRef = useRef();
-  const ownerRef = useRef();
 
   const onSubmitForm = async (event) => {
     event.preventDefault();
@@ -52,10 +58,11 @@ const FormProduct = () => {
           price: Number(priceRef.current.value),
           description: descriptionRef.current.value,
           stok: Number(stockRef.current.value),
-          image: [image],
+          image: result,
           categoryId: categoryId,
           type: type,
         };
+        console.log(data, ":))");
         await SuperAgent.post(appConfig.apiUrl + "/products")
           .send(data)
           .set(
@@ -76,7 +83,7 @@ const FormProduct = () => {
           stok: Number(
             stockRef.current.value ? stockRef.current.value : oldData.stok
           ),
-          image: image ? image : oldData.image,
+          // image: image ? image : oldData.image,
           type: type ? type : oldData?.type,
           categoryId: categoryId ? categoryId : oldData?.category?.id,
         };
@@ -122,17 +129,75 @@ const FormProduct = () => {
                 <div
                   className={`w-full h-full ${
                     mode === "edit"
-                      ? "h-auto"
-                      : "md:h-[50%] lg:h-[63%] xl:w-[98%] xl:h-[97%] 2xl:w-[77%] 2xl:h-[96%]"
+                      ? "xl:w-[98%] 2xl:w-[77%] h-auto"
+                      : "xl:w-[98%] 2xl:w-[77%] h-auto"
                   } p-4 bg-gray-100 lg:p-6 xl:p-8`}
                 >
                   {mode === "edit" ? (
-                    <Image
-                      src={`http://49.0.2.250:3002/file/${product?.image}`}
-                      width={500}
-                      height={500}
-                      alt={"Product Image"}
-                    />
+                    <div className="w-full overflow-hidden rounded-sm">
+                      <div className="flex flex-col-reverse gap-5 md:flex-row">
+                        <div className="flex flex-row items-center md:flex-col">
+                          <div
+                            className="flex flex-row items-center gap-2 p-2 overflow-scroll max-w-screen max-h-[460px] md:flex-col bg-gray-100 scroll-smooth scrollbar-hide"
+                            id="slider"
+                          >
+                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                              <Image
+                                src={`http://49.0.2.250:3002/file/${product?.image[1]}`}
+                                preview={false}
+                                width={500}
+                                height={500}
+                                className="w-full h-full"
+                                alt="Product Image"
+                              />
+                            </div>
+
+                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                              <Image
+                                src={`http://49.0.2.250:3002/file/${product?.image[2]}`}
+                                preview={false}
+                                width={500}
+                                height={500}
+                                className="w-full h-full"
+                                alt="Product Image"
+                              />
+                            </div>
+
+                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                              <Image
+                                src={`http://49.0.2.250:3002/file/${product?.image[3]}`}
+                                preview={false}
+                                width={500}
+                                height={500}
+                                className="w-full h-full"
+                                alt="Product Image"
+                              />
+                            </div>
+
+                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                              <Image
+                                src={`http://49.0.2.250:3002/file/${product?.image[4]}`}
+                                preview={false}
+                                width={500}
+                                height={500}
+                                className="w-full h-full"
+                                alt="Product Image"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-full h-full">
+                          <Image
+                            src={`http://49.0.2.250:3002/file/${product?.image[0]}`}
+                            preview={false}
+                            width={500}
+                            height={500}
+                            className="w-full max-h-[475px]"
+                            alt="Product Image"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     <UploadImage setImage={setImage} />
                   )}
@@ -173,9 +238,7 @@ const FormProduct = () => {
                   <Select
                     className="w-full py-1.5a mb-5 text-xs border rounded-md border-textColor hover:border-textColor"
                     placeholder={`${
-                      detailproduct
-                        ? product?.type
-                        : "Choose Product Type"
+                      detailproduct ? product?.type : "Choose Product Type"
                     }`}
                     onSelect={(value) => {
                       setType(value);
@@ -232,7 +295,7 @@ const FormProduct = () => {
                 <label className="text-sm font-medium text-gray-500">
                   Description
                 </label>
-                <div className="w-full px-4 py-2.5 mb-5 bg-gray-100 rounded-md">
+                <div className="w-full px-4 py-2.5 mb-14 bg-gray-100 rounded-md">
                   <textarea
                     ref={descriptionRef}
                     defaultValue={product?.description}
