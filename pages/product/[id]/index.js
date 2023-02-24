@@ -135,13 +135,13 @@ const FormProduct = () => {
                 >
                   {mode === "edit" ? (
                     <div className="w-full overflow-hidden rounded-sm">
-                      <div className="flex flex-col-reverse gap-5 md:flex-row">
+                      <div className="flex flex-col-reverse gap-2 xl:gap-5 md:flex-row">
                         <div className="flex flex-row items-center md:flex-col">
                           <div
                             className="flex flex-row items-center gap-2 p-2 overflow-scroll max-w-screen max-h-[460px] md:flex-col bg-gray-100 scroll-smooth scrollbar-hide"
                             id="slider"
                           >
-                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                            <div className="md:w-[40px] md:h-[40px] lg:w-[60px] lg:h-[60px] xl:w-[100px] xl:h-[100px]">
                               <Image
                                 src={`http://49.0.2.250:3002/file/${product?.image[1]}`}
                                 preview={false}
@@ -152,7 +152,7 @@ const FormProduct = () => {
                               />
                             </div>
 
-                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                            <div className="md:w-[40px] md:h-[40px] lg:w-[60px] lg:h-[60px] xl:w-[100px] xl:h-[100px]">
                               <Image
                                 src={`http://49.0.2.250:3002/file/${product?.image[2]}`}
                                 preview={false}
@@ -163,7 +163,7 @@ const FormProduct = () => {
                               />
                             </div>
 
-                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                            <div className="md:w-[40px] md:h-[40px] lg:w-[60px] lg:h-[60px] xl:w-[100px] xl:h-[100px]">
                               <Image
                                 src={`http://49.0.2.250:3002/file/${product?.image[3]}`}
                                 preview={false}
@@ -174,7 +174,7 @@ const FormProduct = () => {
                               />
                             </div>
 
-                            <div className="md:w-[80px] md:h-[80px] lg:w-[77px] lg:h-[77px] xl:w-[100px] xl:h-[100px]">
+                            <div className="md:w-[40px] md:h-[40px] lg:w-[60px] lg:h-[60px] xl:w-[100px] xl:h-[100px]">
                               <Image
                                 src={`http://49.0.2.250:3002/file/${product?.image[4]}`}
                                 preview={false}
