@@ -19,7 +19,7 @@ const Product = () => {
 
   const { data: dataProduct } = productRepository.hooks.getProduct(
     pagePagination,
-    selected?.name === "All Products" ? "" : selected?.name
+    selected?.name === "All Products" ? "" : selected?.id
   );
   const { data: detailProduct } = productRepository.hooks.getDetailproduct(id);
   const products = dataProduct?.data;
@@ -198,7 +198,7 @@ const Product = () => {
         <div className="flex items-center justify-center">
           <Pagination
             current={pagePagination}
-            pageSize={12}
+            pageSize={6}
             total={totalPage}
             onChange={(current) => setPagePagination(current)}
           />
