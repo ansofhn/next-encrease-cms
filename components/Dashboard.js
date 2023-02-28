@@ -27,10 +27,13 @@ ChartJs.register(
 );
 
 import { Doughnut, Bar } from "react-chartjs-2";
+import { reportRepository } from "../repository/report";
 
 const Dashboard = () => {
-  // Bar Charts
+  const { data: dataReport } = reportRepository.hooks.getReport();
+  const report = dataReport?.data
 
+  // Bar Charts
   const datas = {
     labels: [
       "Sunday",
@@ -85,7 +88,7 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Amount",
-        data: [70, 30],
+        data: [report?.productType?.goods, report?.productType?.service],
         backgroundColor: ["#23374D", "#E5E5E5"],
         hoverOffset: 4,
       },
@@ -119,15 +122,15 @@ const Dashboard = () => {
         <div className="grid grid-cols-3 gap-6 xl:grid-cols-4">
           <div className="px-8 py-6 space-y-5 font-medium rounded-sm bg-softWhite text-background/80">
             <div className="text-sm">Total User</div>
-            <div className="text-3xl font-bold">120</div>
+            <div className="text-3xl font-bold">{report?.user}</div>
           </div>
           <div className="px-8 py-6 space-y-5 font-medium rounded-sm bg-softWhite text-background/80">
             <div className="text-sm">Total Product</div>
-            <div className="text-3xl font-bold">75</div>
+            <div className="text-3xl font-bold">{report?.product}</div>
           </div>
           <div className="px-8 py-6 space-y-5 font-medium rounded-sm bg-softWhite text-background/80">
             <div className="text-sm">Total Order</div>
-            <div className="text-3xl font-bold">100</div>
+            <div className="text-3xl font-bold">{report?.transaction}</div>
           </div>
 
           <div className="flex-col justify-between hidden row-span-3 p-6 rounded-sm xl:flex bg-softWhite">

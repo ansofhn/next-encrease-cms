@@ -4,9 +4,9 @@ import { http } from "../utils/http";
 const url = {
   product: (page, filter ) => {
     if (filter?.length > 0) {
-      return `/products?page=${page}&limit=6&filter.category.id=$in:${filter}`
+      return `/products?page=${page}&limit=12&filter.category.id=$in:${filter}`
     } else {
-      return `/products?page=${page}&limit=6`
+      return `/products?page=${page}&limit=12`
     }
   },
   detailproduct: (id) => `/products/${id}`,

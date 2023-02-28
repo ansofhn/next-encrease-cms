@@ -198,7 +198,7 @@ const Product = () => {
         <div className="flex items-center justify-center">
           <Pagination
             current={pagePagination}
-            pageSize={6}
+            pageSize={12}
             total={totalPage}
             onChange={(current) => setPagePagination(current)}
           />
