@@ -108,7 +108,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-10 mx-8 bg-gray-100 pb-28 mt-36">
+    <div className="p-10 pb-10 mx-8 bg-gray-100 mt-36">
       <div className="space-y-10">
         <div className="flex items-center justify-between">
           <div className="text-xl font-semibold text-background/80">

@@ -99,17 +99,17 @@ const Navbar = () => {
             Review & Rating
           </div>
         </Link>
-        {/* <Link href={"/page"}>
+        <Link href={"/transaction"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
-              currentRoute === "/page"
+              currentRoute === "/transaction"
                 ? "border-b-2 border-background/80 transition duration-300"
                 : ""
             }`}
           >
-            Page
+            Transaction
           </div>
-        </Link> */}
+        </Link>
         <Link href={"/user"}>
           <div
             className={`p-2 py-5 cursor-pointer ${

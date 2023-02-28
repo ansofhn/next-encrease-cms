@@ -9,7 +9,7 @@ export const http = {
       req = req.set(
         "Authorization",
         "Bearer " + localStorage.getItem("access_token")
-      )
+      );
       const resp = await req;
       return resp?.body;
     } catch (e) {
@@ -20,6 +20,10 @@ export const http = {
   put: async (url, data) => {
     try {
       let req = SuperAgent.put(`${appConfig.apiUrl}${url}`);
+      req = req.set(
+        "Authorization",
+        "Bearer " + localStorage.getItem("access_token")
+      );
       const resp = await req;
       return resp?.body;
     } catch (e) {
@@ -33,7 +37,7 @@ export const http = {
       req = req.set(
         "Authorization",
         "Bearer " + localStorage.getItem("access_token")
-      )
+      );
       const resp = await req;
       return resp?.body;
     } catch (e) {
@@ -47,7 +51,7 @@ export const http = {
       req = req.set(
         "Authorization",
         "Bearer " + localStorage.getItem("access_token")
-      )
+      );
       const resp = await req;
       return resp?.body;
     } catch (e) {
