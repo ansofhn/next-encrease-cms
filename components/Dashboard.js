@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Chart as ChartJs,
   CategoryScale,
@@ -31,31 +31,34 @@ import { reportRepository } from "../repository/report";
 
 const Dashboard = () => {
   const { data: dataReport } = reportRepository.hooks.getReport();
-  const report = dataReport?.data
+  const report = dataReport?.data;
+
+  const { data: dataRevenue } = reportRepository.hooks.getRevenue();
+  const revenue = dataRevenue?.data;
+
+  const transaction = [];
+  const sold = [];
+
+  revenue?.map((data) => {
+    transaction.push(Number(data?.transaction));
+    sold.push(Number(data?.transactionsuccess));
+  });
 
   // Bar Charts
   const datas = {
-    labels: [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ],
+    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     datasets: [
       {
-        label: "Product",
+        label: "Transaction",
         borderRadius: 4,
-        data: [0.1, 0.4, 0.2, 0.3, 0.7, 0.4, 0.6],
+        data: transaction,
         backgroundColor: "#23374D",
         barThickness: 24,
       },
       {
-        label: "Order",
+        label: "Sold",
         borderRadius: 4,
-        data: [0.07, 0.3, 0.15, 0.2, 0.6, 0.5, 0.3],
+        data: sold,
         backgroundColor: "#E5E5E5",
         barThickness: 24,
       },
@@ -88,7 +91,7 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Amount",
-        data: [report?.productType?.goods, report?.productType?.service],
+        data: [report?.type[0]?.productCount, report?.type[1]?.productCount],
         backgroundColor: ["#23374D", "#E5E5E5"],
         hoverOffset: 4,
       },
@@ -144,12 +147,9 @@ const Dashboard = () => {
             />
             <div className="flex items-center p-3 bg-gray-100 rounded-sm">
               <div className="p-3 rounded-sm bg-softWhite flex items-center w-[50%]">
-                <div className="w-[50%] p-2">
-                  <div className="w-full h-8 rounded-sm bg-background/90"></div>
-                </div>
-                <div>
-                  <div className="text-xl font-semibold text-background/80">
-                    30%
+                <div className="">
+                  <div className="text-xl font-semibold text-center text-background/80">
+                    {}%
                   </div>
                   <div className="text-xs font-medium text-background/70">
                     Weekly
@@ -158,7 +158,7 @@ const Dashboard = () => {
               </div>
               <div className="p-3">
                 <div className="text-2xl font-semibold text-background/80">
-                  40
+                  {}
                 </div>
                 <div className="text-xs font-medium text-background/70">
                   Total Sold
