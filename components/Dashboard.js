@@ -149,7 +149,7 @@ const Dashboard = () => {
               <div className="p-3 rounded-sm bg-softWhite flex items-center w-[50%]">
                 <div className="">
                   <div className="text-xl font-semibold text-center text-background/80">
-                    {}%
+                    {((report?.sold / report?.transaction) * 100).toFixed(1)}%
                   </div>
                   <div className="text-xs font-medium text-background/70">
                     Weekly
@@ -158,7 +158,7 @@ const Dashboard = () => {
               </div>
               <div className="p-3">
                 <div className="text-2xl font-semibold text-background/80">
-                  {}
+                  {report?.sold}
                 </div>
                 <div className="text-xs font-medium text-background/70">
                   Total Sold
