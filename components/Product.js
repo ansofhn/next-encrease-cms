@@ -172,7 +172,7 @@ const Product = () => {
                 }}
                 key={data?.id}
               >
-                <div className="p-6 bg-gray-300">
+                <div className="p-6 bg-gray-50">
                   <img
                     src={`http://49.0.2.250:3002/file/${data?.image[0]}`}
                     className="w-full"

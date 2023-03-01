@@ -2,7 +2,6 @@ import { message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { FaCog, FaBell, FaSearch } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { authentication } from "../utils/authentication";
 import { TokenUtil } from "../utils/token";
@@ -24,27 +23,8 @@ const Navbar = () => {
               encrease
             </div>
           </Link>
-
-          {/* <div className="flex items-center bg-gray-100 rounded-sm w-60">
-            <div className="py-2.5 pl-4 text-background/50 text-sm">
-              <FaSearch />
-            </div>
-            <input
-              type="text"
-              className="w-full py-2.5 px-3 bg-gray-100 focus:outline-none text-background/60 text-sm"
-              placeholder="Search"
-            />
-          </div> */}
         </div>
         <div className="flex items-center gap-x-10">
-          {/* <div className="flex items-center gap-x-6">
-            <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full cursor-pointer">
-              <FaCog className="flex items-center justify-center w-4 h-6 text-background/50" />
-            </div>
-            <div className="flex items-center px-2 py-1 bg-gray-100 rounded-full cursor-pointer">
-              <FaBell className="flex items-center justify-center w-4 h-6 text-background/50" />
-            </div>
-          </div> */}
           {TokenUtil.access_token ? (
             <div className="flex items-center px-6 py-2.5 border rounded-lg cursor-pointer border-softGray gap-x-4 ">
               <div className="text-sm font-medium text-background">Admin</div>
