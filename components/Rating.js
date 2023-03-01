@@ -1,6 +1,6 @@
-import { message, Modal, Rate, Table } from "antd";
+import { Image, message, Modal, Rate, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { BsThreeDots } from "react-icons/bs";
 import { http } from "../utils/http";
 import { mutate } from "swr";
 import { useRouter } from "next/router";
@@ -49,7 +49,16 @@ const Rating = () => {
       render: (data) => {
         return (
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gray-100 rounded-full"></div>
+            <div className="w-12 h-12 bg-gray-200 rounded-full">
+              {/* <Image
+                src={"https://source.unsplash.com/random/300x300?male"}
+                width={48}
+                height={48}
+                className={"rounded-full"}
+                alt="Profile Image"
+                preview={false}
+              /> */}
+            </div>
             <div className="flex flex-col space-y-2 font-poppins">
               <div className="flex items-center gap-4">
                 <div className="font-semibold capitalize">
@@ -70,10 +79,20 @@ const Rating = () => {
       dataIndex: "product",
       width: 300,
       render: (product) => {
+        console.log(product, ":))");
         return (
           <div className="flex items-center gap-3 font-poppins">
-            <div className="w-12 h-12 bg-gray-100 rounded-sm"></div>
-            <div className="font-semibold">Product Name</div>
+            <div className="w-12 h-12 bg-gray-100 rounded-sm">
+              <Image
+                src={`http://49.0.2.250:3002/file/${product?.image[0]}`}
+                width={48}
+                height={48}
+                className={"rounded-full"}
+                alt="Profile Image"
+                preview={false}
+              />
+            </div>
+            <div className="font-semibold">{product?.name}</div>
           </div>
         );
       },
@@ -83,63 +102,43 @@ const Rating = () => {
       dataIndex: "rate",
       width: 200,
       render: (rate) => {
+        const rating = Number(rate).toFixed(1);
         return (
           <div className="flex items-center gap-3 font-poppins">
-            <div className="text-xl font-bold text-background">
-              {rate.toFixed(1)}
-            </div>
+            <div className="text-xl font-bold text-background">{rating}</div>
             <Rate
               className="text-sm text-yellow-400"
               disabled
               allowHalf
-              defaultValue={rate}
+              defaultValue={Number(rating)}
             />
           </div>
         );
       },
     },
-    // {
-    //   title: "Role",
-    //   align: "center",
-    //   width: 150,
-    //   dataIndex: "role",
-    //   render: (role) => {
-    //     if (role.name == "admin") {
-    //       return (
-    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md bg-background/90 text-softWhite">
-    //           {role.name}
-    //         </div>
-    //       );
-    //     } else {
-    //       return (
-    //         <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md bg-softGray text-textColor">
-    //           {role.name}
-    //         </div>
-    //       );
-    //     }
-    //   },
-    // },
     {
       align: "center",
       title: "Actions",
       width: 150,
       render: (record) => {
         return (
-          <div className="text-center">
-            <EditOutlined
+          <div className="flex items-center justify-center">
+            {/* <EditOutlined
               onClick={() =>
                 router.push({
                   pathname: "/user/[id]",
                   query: { id: record?.id },
                 })
               }
-            />
-            <DeleteOutlined
-              onClick={() => {
-                onDeleteReview(record);
-              }}
-              style={{ color: "maroon", marginLeft: 14 }}
-            />
+            /> */}
+            <div className="flex items-center px-4 py-2 bg-gray-100 rounded-md cursor-pointer">
+              <BsThreeDots
+                onClick={() => {
+                  onDeleteReview(record);
+                }}
+                className="text-xl text-gray-400"
+              />
+            </div>
           </div>
         );
       },
