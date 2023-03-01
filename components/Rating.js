@@ -79,7 +79,6 @@ const Rating = () => {
       dataIndex: "product",
       width: 300,
       render: (product) => {
-        console.log(product, ":))");
         return (
           <div className="flex items-center gap-3 font-poppins">
             <div className="w-12 h-12 bg-gray-100 rounded-sm">

@@ -61,18 +61,39 @@ const User = () => {
       dataIndex: "fullname",
       width: 300,
       key: "fullname",
+      render: (data) => {
+        return (
+          <div className="font-poppins">
+            {data}
+          </div>
+        );
+      },
     },
     {
       title: "Email",
       dataIndex: "email",
       width: 300,
       key: "email",
+      render: (data) => {
+        return (
+          <div className="font-poppins">
+            {data}
+          </div>
+        );
+      },
     },
     {
       title: "Phone",
       dataIndex: "phone",
       width: 200,
       key: "phone",
+      render: (data) => {
+        return (
+          <div className="font-poppins">
+            {data}
+          </div>
+        );
+      },
     },
     {
       title: "Role",
@@ -83,13 +104,13 @@ const User = () => {
       render: (role) => {
         if (role.name == "admin") {
           return (
-            <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md bg-background/90 text-softWhite">
+            <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md font-poppins bg-background/90 text-softWhite">
               {role.name}
             </div>
           );
         } else {
           return (
-            <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md bg-softGray text-textColor">
+            <div className="self-center px-2 py-2 text-xs font-semibold text-center uppercase rounded-md font-poppins bg-softGray text-textColor">
               {role.name}
             </div>
           );
