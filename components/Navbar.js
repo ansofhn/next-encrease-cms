@@ -88,7 +88,7 @@ const Navbar = () => {
             Product
           </div>
         </Link>
-        <Link href={"#"}>
+        <Link href={"/rating"}>
           <div
             className={`p-2 py-5 cursor-pointer ${
               currentRoute === "/rating"
