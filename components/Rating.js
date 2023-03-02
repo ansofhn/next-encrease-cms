@@ -1,4 +1,4 @@
-import { Image, message, Modal, Rate, Table } from "antd";
+import { Avatar, Image, message, Modal, Rate, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { http } from "../utils/http";
@@ -49,15 +49,12 @@ const Rating = () => {
       render: (data) => {
         return (
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gray-200 rounded-full">
-              {/* <Image
-                src={"https://source.unsplash.com/random/300x300?male"}
-                width={48}
-                height={48}
-                className={"rounded-full"}
+            <div className="w-12 h-12 p-1 bg-gray-200 rounded-full">
+              <Avatar
+                src={`http://49.0.2.250:3002/file/${data?.user?.image}`}
+                size={40}
                 alt="Profile Image"
-                preview={false}
-              /> */}
+              />
             </div>
             <div className="flex flex-col space-y-2 font-poppins">
               <div className="flex items-center gap-4">
