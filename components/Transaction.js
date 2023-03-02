@@ -12,8 +12,6 @@ const Transaction = () => {
     transactionRepository.hooks.getTransaction(pagePagination);
   const dataTrans = dataTransaction?.data;
 
-  console.log(dataTrans, ":)");
-
   useEffect(() => {
     setTotalPage(dataTransaction?.meta?.totalItems);
   }, [dataTransaction]);

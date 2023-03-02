@@ -44,8 +44,6 @@ const Dashboard = () => {
     sold.push(Number(data?.transactionSuccess));
   });
 
-  console.log(revenue, ":)")
-
   // Bar Charts
   const datas = {
     labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
