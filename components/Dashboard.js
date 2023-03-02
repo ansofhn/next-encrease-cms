@@ -41,8 +41,10 @@ const Dashboard = () => {
 
   revenue?.map((data) => {
     transaction.push(Number(data?.transaction));
-    sold.push(Number(data?.transactionsuccess));
+    sold.push(Number(data?.transactionSuccess));
   });
+
+  console.log(revenue, ":)")
 
   // Bar Charts
   const datas = {
