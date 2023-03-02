@@ -78,12 +78,12 @@ const Rating = () => {
       render: (product) => {
         return (
           <div className="flex items-center gap-3 font-poppins">
-            <div className="w-12 h-12 bg-gray-100 rounded-sm">
+            <div className="w-12 h-12 p-1 bg-gray-100 rounded-sm">
               <Image
                 src={`http://49.0.2.250:3002/file/${product?.image[0]}`}
-                width={48}
-                height={48}
-                className={"rounded-full"}
+                width={40}
+                height={40}
+                className={"rounded-sm"}
                 alt="Profile Image"
                 preview={false}
               />
