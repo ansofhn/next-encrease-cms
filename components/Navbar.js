@@ -5,6 +5,7 @@ import React from "react";
 import { MdOutlineLogout } from "react-icons/md";
 import { authentication } from "../utils/authentication";
 import { TokenUtil } from "../utils/token";
+import ProfileSetting from "./ProfileSetting";
 
 const Navbar = () => {
   const router = useRouter();
@@ -26,15 +27,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-x-10">
           {TokenUtil.access_token ? (
-            <div className="flex items-center px-6 py-2.5 border rounded-lg cursor-pointer border-softGray gap-x-4 ">
-              <div className="text-sm font-medium text-background">Admin</div>
-              <button
-                className="text-lg text-background font-extralight"
-                onClick={handleLogout}
-              >
-                <MdOutlineLogout />
-              </button>
-            </div>
+            <ProfileSetting handleLogout={handleLogout} />
           ) : (
             <Link href={"/auth/login"}>
               <button className="px-3 py-1.5 font-bold uppercase transition duration-300 border-2 rounded-md cursor-pointer text-background border-background">
@@ -101,17 +94,6 @@ const Navbar = () => {
             User Admin
           </div>
         </Link>
-        {/* <Link href={"#"}>
-          <div
-            className={`p-2 py-5 cursor-pointer ${
-              currentRoute === "/forum"
-                ? "border-b-2 border-background/80 transition duration-300"
-                : ""
-            }`}
-          >
-            Forum
-          </div>
-        </Link> */}
       </div>
     </nav>
   );
