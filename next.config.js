@@ -6,7 +6,11 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    remotePatterns: [{ protocol: "http", hostname: "49.0.2.250" }],
+    remotePatterns: [{
+      protocol: "http",
+      hostname: "49.0.2.250"
+    }],
+    domains: ["source.unsplash.com", "49.0.2.250"],
   },
 };
 
