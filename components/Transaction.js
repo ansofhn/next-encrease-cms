@@ -8,11 +8,12 @@ const Transaction = () => {
   const [pagePagination, setPagePagination] = useState(1);
   const [totalPage, setTotalPage] = useState();
   const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState()
+  const [image, setImage] = useState("");
 
   const { data: dataTransaction } =
     transactionRepository.hooks.getTransaction(pagePagination);
   const dataTrans = dataTransaction?.data;
+  console.log(dataTrans, "data");
 
   useEffect(() => {
     setTotalPage(dataTransaction?.meta?.totalItems);
@@ -65,6 +66,12 @@ const Transaction = () => {
       message.error("Failed");
       return;
     }
+  };
+
+  const handleSeePaymentProof = (record) => {
+    console.log(record, "record");
+    setImage(`http://49.0.2.250:3002/file/${record?.image}`);
+    setOpen(true);
   };
 
   return (
@@ -128,8 +135,7 @@ const Transaction = () => {
                     <div className="space-y-3">
                       <button
                         onClick={() => {
-                          setOpen(true)
-                          setIndex(index)
+                          handleSeePaymentProof(data);
                         }}
                         className="px-5 py-2.5 w-full text-sm font-medium rounded-sm bg-gray-200 text-background"
                       >
@@ -176,10 +182,7 @@ const Transaction = () => {
       >
         <div className="px-6 pt-8 pb-2.5 space-y-6 font-poppins">
           <div className="flex items-center justify-center p-4 bg-gray-300">
-            <img
-              src={`http://49.0.2.250:3002/file/${dataTrans[index]?.image}`}
-              className="w-full"
-            />
+            <img src={image} className="w-full" />
           </div>
           <hr className="border-gray-200" />
         </div>
