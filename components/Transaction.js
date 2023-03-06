@@ -1,4 +1,4 @@
-import { message, Pagination } from "antd";
+import { message, Modal, Pagination } from "antd";
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import { mutate } from "swr/_internal";
@@ -7,6 +7,8 @@ import { transactionRepository } from "../repository/transactions";
 const Transaction = () => {
   const [pagePagination, setPagePagination] = useState(1);
   const [totalPage, setTotalPage] = useState();
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState()
 
   const { data: dataTransaction } =
     transactionRepository.hooks.getTransaction(pagePagination);
@@ -75,7 +77,7 @@ const Transaction = () => {
         </div>
         <hr className="border-gray-200" />
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 font-poppins">
-          {dataTrans?.map((data) => {
+          {dataTrans?.map((data, index) => {
             return (
               <div className="p-6 space-y-3 rounded-md shadow-sm bg-softWhite">
                 <div className="flex items-center justify-between">
@@ -120,14 +122,29 @@ const Transaction = () => {
                   </span>
                 </div>
                 <div className="flex items-center justify-start pt-2 space-x-4">
-                  {data?.status === "IP" && data?.paymentStatus === true && data?.deliveryStatus === "Menunggu Konfirmasi Admin" ? (
-                    <button
-                      onClick={() => handlePayment(data?.id)}
-                      className="px-5 py-2.5 w-full text-sm font-medium rounded-sm bg-background text-softWhite"
-                    >
-                      Confirm Payment
-                    </button>
-                  ) : data?.status === "IP" && data?.deliveryStatus === "Penjual Sedang Menyiapkan Barang/Jasa" ? (
+                  {data?.status === "IP" &&
+                  data?.paymentStatus === true &&
+                  data?.deliveryStatus === "Menunggu Konfirmasi Admin" ? (
+                    <div className="space-y-3">
+                      <button
+                        onClick={() => {
+                          setOpen(true)
+                          setIndex(index)
+                        }}
+                        className="px-5 py-2.5 w-full text-sm font-medium rounded-sm bg-gray-200 text-background"
+                      >
+                        See proof of payment
+                      </button>
+                      <button
+                        onClick={() => handlePayment(data?.id)}
+                        className="px-5 py-2.5 w-full text-sm font-medium rounded-sm bg-background text-softWhite"
+                      >
+                        Confirm Payment
+                      </button>
+                    </div>
+                  ) : data?.status === "IP" &&
+                    data?.deliveryStatus ===
+                      "Penjual Sedang Menyiapkan Barang/Jasa" ? (
                     <button
                       onClick={() => handleDelivery(data?.id)}
                       className="px-5 py-2.5 w-full text-sm font-medium rounded-sm bg-gray-200 text-background"
@@ -135,8 +152,7 @@ const Transaction = () => {
                       Confirm Delivery
                     </button>
                   ) : (
-                    <div className="w-full px-5 py-5 text-sm font-medium rounded-sm">
-                    </div>
+                    <div className="w-full px-5 py-5 text-sm font-medium rounded-sm"></div>
                   )}
                 </div>
               </div>
@@ -152,6 +168,22 @@ const Transaction = () => {
           />
         </div>
       </div>
+      <Modal
+        open={open}
+        centered={true}
+        onCancel={() => setOpen(false)}
+        footer={false}
+      >
+        <div className="px-6 pt-8 pb-2.5 space-y-6 font-poppins">
+          <div className="flex items-center justify-center p-4 bg-gray-300">
+            <img
+              src={`http://49.0.2.250:3002/file/${dataTrans[index]?.image}`}
+              className="w-full"
+            />
+          </div>
+          <hr className="border-gray-200" />
+        </div>
+      </Modal>
     </div>
   );
 };
