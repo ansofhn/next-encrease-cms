@@ -8,6 +8,7 @@ import jwtDecode from "jwt-decode";
 import { authentication } from "../../utils/authentication";
 import { InfoContact } from "../../components/InfoContact";
 import CMSLayout from "../../layouts/CMSLayout";
+import moment from "moment/moment";
 
 
 const SuperAgent = require("superagent");
@@ -90,12 +91,12 @@ const conversation = () => {
     return (
         <div>
             <div className="container py-24 mt-28">
-                <div className="py-6 h-screen">
-                    <div className="flex border border-gray-600 rounded shadow-lg h-full">
+                <div className="h-screen py-6">
+                    <div className="flex h-full border border-gray-600 rounded shadow-lg">
                         {/* Left */}
-                        <div className="basis-1/3 border flex flex-col">
+                        <div className="flex flex-col border basis-1/3">
                             {/* Header */}
-                            <div className="py-2 px-3 bg-slate-300 flex flex-row justify-between items-center">
+                            <div className="flex flex-row items-center justify-between px-3 py-2 bg-slate-300">
                                 <div>
                                     <div className="p-1 bg-gray-200 rounded-full">
                                         <div className="overflow-hidden bg-gray-200 rounded-full w-9 h-9">
@@ -114,7 +115,7 @@ const conversation = () => {
                             </div>
 
                             {/* Search */}
-                            <div className="py-2 px-2 bg-slate-200">
+                            <div className="px-2 py-2 bg-slate-200">
                                 <input type="text" className="w-full px-2 py-2 text-sm" placeholder="Search or start new chat"/>
                             </div>
 
@@ -141,9 +142,9 @@ const conversation = () => {
                         </div>
 
                         {/* Right */}
-                        <div className="basis-2/3 border flex flex-col">
+                        <div className="flex flex-col border basis-2/3">
                             {/* Header */}
-                            <div className="py-2 px-3 bg-slate-300 flex flex-row justify-between items-center">
+                            <div className="flex flex-row items-center justify-between px-3 py-2 bg-slate-300">
                                 <div className="flex item-center">
                                     <div>
                                         <div className="p-1 bg-gray-200 rounded-full">
@@ -167,7 +168,7 @@ const conversation = () => {
 
                             {/* Messgaes */}
                             <div className="flex-1 overflow-auto">
-                                <div className="py-2 px-3">
+                                <div className="px-3 py-2">
 
                                     {messages.length === 0 ? (
                                         <div>No Messages</div>
@@ -179,11 +180,11 @@ const conversation = () => {
                                                     key={idx}
                                                 >
                                                     <div className={`rounded py-2 px-3 ${msg.senderId === user.id ? 'bg-blue-400' : 'bg-slate-400'}`}>
-                                                        <p className="text-sm mt-1">
+                                                        <p className="mt-1 text-sm">
                                                             {msg.messages}
                                                         </p>
-                                                        <p className="text-right text-xs text-grey-dark mt-1">
-                                                            12:45 pm
+                                                        <p className="mt-1 text-xs text-right text-grey-dark">
+                                                            {moment(msg.createdAt).format('LT')}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -198,7 +199,7 @@ const conversation = () => {
                             </div>
 
                             {/* Input */}
-                            <div className="px-4 py-4 flex items-center bg-slate-200">
+                            <div className="flex items-center px-4 py-4 bg-slate-200">
                                 <div className="flex-1 mx-4">
                                     <form
                                         onSubmit={onSubmitForm}
@@ -208,7 +209,7 @@ const conversation = () => {
                                                 ref={messagesReff}
                                                 type="text"
                                                 required
-                                                className="w-full text-sm rounded px-2 py-2 text-current focus:outline-none"
+                                                className="w-full px-2 py-2 text-sm text-current rounded focus:outline-none"
                                                 placeholder="Type a message"
                                             />
                                             <button type="submit" className=""><FaPaperPlane className="absolute top-2.5 right-2.5"/></button>
